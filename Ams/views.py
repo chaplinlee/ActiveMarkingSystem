@@ -8,18 +8,20 @@ from django.http import HttpResponse
 #     return HttpResponse("Hello, world. You're at the polls index.")
 
 
-
 def login(request):
+    if request.method == 'GET':
+        return render(request, "login.html")
 
+    else:
+        username = request.POST.get('id_username', '')
+        password = request.POST.get('id_password', '')
 
-    return render(request, "login.html", {
-        # username
+        if username == 'admin' & password == 'admin':
+            return render(request, "page_marking.html")
+        else:
+            print('error')
+            return render(request, "login.html")
 
-        # password
-    })
 
 def marking(request):
-
-    return render(request, "page_marking.html", {
-
-    })
+    return render(request, "page_marking.html")
