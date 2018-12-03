@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ActiveMarkingSystem.iml" filepath="$PROJECT_DIR$/.idea/ActiveMarkingSystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../EsiWebsite2_0/.idea/EsiWebsite2_0.iml" filepath="$PROJECT_DIR$/../EsiWebsite2_0/.idea/EsiWebsite2_0.iml" />
     </modules>
   </component>
 </project>
