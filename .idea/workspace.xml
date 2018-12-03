@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f90911db-1737-4b01-9792-4c809dd534a0" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/page_marking.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ActiveMarkingSystem.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ActiveMarkingSystem.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ActiveMarkingSystem/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ActiveMarkingSystem/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ams/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ams/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ams/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ams/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../EsiWebsite2_0/Connor/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../EsiWebsite2_0/Connor/views.py" afterDir="false" />
     </list>
@@ -33,11 +25,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ActiveMarkingSystem/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+            <state relative-caret-position="408">
+              <caret line="24" column="44" lean-forward="true" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
               <folding>
                 <element signature="e#643#675#0" expanded="true" />
               </folding>
@@ -45,11 +37,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Ams/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+            <state relative-caret-position="170">
+              <caret line="10" column="71" selection-start-line="10" selection-start-column="71" selection-end-line="10" selection-end-column="71" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -112,11 +104,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/templates/login.html" />
-        <option value="$PROJECT_DIR$/ActiveMarkingSystem/urls.py" />
         <option value="$PROJECT_DIR$/templates/page_marking.html" />
         <option value="$PROJECT_DIR$/../EsiWebsite2_0/Connor/views.py" />
-        <option value="$PROJECT_DIR$/Ams/views.py" />
         <option value="$PROJECT_DIR$/Ams/models.py" />
+        <option value="$PROJECT_DIR$/Ams/views.py" />
+        <option value="$PROJECT_DIR$/ActiveMarkingSystem/urls.py" />
       </list>
     </option>
   </component>
@@ -129,8 +121,8 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="468" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="43" />
     <option name="y" value="23" />
     <option name="width" value="1375" />
     <option name="height" value="877" />
@@ -258,7 +250,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="468" y="23" width="1375" height="877" extended-state="0" />
+    <frame x="371" y="23" width="1375" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -316,16 +308,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ActiveMarkingSystem/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
-          <folding>
-            <element signature="e#643#675#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Ams/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -340,10 +322,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Ams/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        <state relative-caret-position="170">
+          <caret line="10" column="71" selection-start-line="10" selection-start-column="71" selection-end-line="10" selection-end-column="71" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ActiveMarkingSystem/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="44" lean-forward="true" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
+          <folding>
+            <element signature="e#643#675#0" expanded="true" />
           </folding>
         </state>
       </provider>
