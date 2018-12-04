@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,23 +6,21 @@
     <title>Image Set Active Marking System</title>
 </head>
 <body>
+    <img src="{% static "data_set\\photo_cam1\\11_00_04.jpg" %}"/>
     <form id="id_form" method="post">
         {% csrf_token %}
         <table>
-            <tr>
-                <img src="/photo_cam1/11_00_04.jpg" alt="街道图片"/>
-            </tr>
             <tr>
                 <td><p>您觉得此时街道拥堵吗？</p></td>
             </tr>
             <tr>
                 <td>
-                    <label><input name="flag-1" type="radio" value="" />拥堵</label>
-                    <label><input name="flag-0" type="radio" value="" />不拥堵</label>
+                    <label><input name="flag" type="radio" value="" />拥堵</label>
+                    <label><input name="flag" type="radio" value="" />不拥堵</label>
                 </td>
             </tr>
             <tr>
-                <td><input type="submit" value="">提交</td>
+                <td><input type="submit" value="提交"></td>
             </tr>
         </table>
     </form>

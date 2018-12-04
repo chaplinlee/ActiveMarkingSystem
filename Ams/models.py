@@ -8,7 +8,6 @@ class AdminMarker(models.Model):
     user_name = models.CharField(max_length=200)
     psd = models.CharField(max_length=200)
 
-
 # img set model
 class ImgSet(models.Model):
     img_name = models.CharField(max_length=200)
