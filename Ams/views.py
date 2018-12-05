@@ -4,34 +4,46 @@ from django.shortcuts import render
 import sqlite3
 import os
 from Ams import models
-
+from django.db.models import Q
 
 # def index(request):
 #     return HttpResponse("Hello, world. You're at the polls index.")
 
-def data_set_input(requset):
+# def data_set_input(requset):
+#
+#     unmarked = '-1'  # unmarked img flag
+#     data_set_dir_path = '/data_set/photo_cam1/'
+#     data_set_category = 'road_camera'
+#
+#     path_dir = os.listdir('./static' + data_set_dir_path)
+#     for all_dir in path_dir:
+#
+#         name = data_set_dir_path + os.path.join(all_dir)
+#         category = data_set_category
+#         flag = unmarked
+#
+#         models.ImgSet.objects.create(
+#             img_name=name,
+#             img_cat=category,
+#             mark_flag=flag
+#         )
 
-    unmarked = '-1'  # unmarked img flag
-    data_set_dir_path = '/data_set/photo_cam1/'
-    data_set_category = 'road_camera'
 
-    path_dir = os.listdir('./static' + data_set_dir_path)
-    for all_dir in path_dir:
+def img_push(request):
 
-        name = data_set_dir_path + os.path.join(all_dir)
-        category = data_set_category
-        flag = unmarked
+    img_name = '11_02_13.jpg'
+    # push = models.ImgSet.objects.get(ImgSet)
+    push = models.ImgSet.objects.filter(
+        Q(img_name__icontains=img_name)
+        & Q(mark_flag='-1')
+    )
 
-        models.ImgSet.objects.create(
-            img_name=name,
-            img_cat=category,
-            mark_flag=flag
-        )
+    return render(request, "page_marking.html", {'push': push})
 
 
 def login(request):
     if request.method == 'GET':
-        data_set_input(request)
+        # data_set_input(request)
         return render(request, "login.html")
 
     else:
@@ -47,5 +59,6 @@ def login(request):
 
 def marking(request):
     # TODO:
-
+    if request.method == 'GET':
+        img_push(request)
     return render(request, "page_marking.html")
