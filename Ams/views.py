@@ -20,15 +20,21 @@ def data_set_input(requset):
 
         name = data_set_dir_path + os.path.join(all_dir)
         category = data_set_category
-        flag = unmarked
+
+        flag_tag = unmarked
+        flag_tag_judgement = unmarked
+
 
         models.ImgSet.objects.create(
-            img_name=name,
-            img_cat=category,
-            mark_flag=flag
+            img_name = name,
+            img_cat = category,
+            mark_flag = flag_tag,
+            img_tag_judgement = flag_tag_judgement
         )
 
 
+#
+#
 # def img_push(request):
 #
 #     img_name = '11_02_13.jpg'
@@ -39,6 +45,7 @@ def data_set_input(requset):
 #     )
 #
 #     return render(request, "page_marking.html", {'push': push})
+
 
 
 def login(request):
