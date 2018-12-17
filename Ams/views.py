@@ -6,31 +6,51 @@ import os
 from Ams import models
 from django.db.models import Q
 
-# def index(request):
-#     return HttpResponse("Hello, world. You're at the polls index.")
+#
+# def data_set_input(requset):
+#
+#     unmarked = '-1'  # unmarked img flag
+#     data_set_dir_path = '/data_set/photo_cam1/'
+#     data_set_category = 'road_camera'
+#
+#     path_dir = os.listdir('./static' + data_set_dir_path)
+#     for all_dir in path_dir:
+#
+#         name = data_set_dir_path + os.path.join(all_dir)
+#         category = data_set_category
+#
+#         flag_tag = unmarked
+#         flag_tag_judgement = unmarked
+#
+#
+#         models.ImgSet.objects.create(
+#             img_name = name,
+#             img_cat = category,
+#             mark_flag = flag_tag,
+#             img_tag_judgement = flag_tag_judgement
+#         )
+#
+# def data_set_input(img_name, img_cat, mark_flag, img_tag_judgement, table_name):
 
-def data_set_input(requset):
+def data_set_input(request):
+    unmarked = '-1'
+    data_set_dir_path = ''
+    rootdir = '/data_set/'
 
-    unmarked = '-1'  # unmarked img flag
-    data_set_dir_path = '/data_set/photo_cam1/'
-    data_set_category = 'road_camera'
+    dir_list = os.listdir(rootdir)
+    for i in range(0, len(dir_list)):
+        category = dir_list
+        for file in path_file:
+            name =
+            flag_tag = unmarked
+            flag_tag_judgement = unmarked
 
-    path_dir = os.listdir('./static' + data_set_dir_path)
-    for all_dir in path_dir:
-
-        name = data_set_dir_path + os.path.join(all_dir)
-        category = data_set_category
-
-        flag_tag = unmarked
-        flag_tag_judgement = unmarked
-
-
-        models.ImgSet.objects.create(
-            img_name = name,
-            img_cat = category,
-            mark_flag = flag_tag,
-            img_tag_judgement = flag_tag_judgement
-        )
+            models.ImgSet.objects.create(
+                        img_name = name,
+                        img_cat = category,
+                        mark_flag = flag_tag,
+                        img_tag_judgement = flag_tag_judgement
+                    )
 
 
 #
