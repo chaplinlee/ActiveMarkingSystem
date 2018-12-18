@@ -55,35 +55,24 @@ import random
 
 #
 #
-def random_image_push(request):
+def random_image_push(self):
 
     query_array = []
     query_result = models.ImgSet.objects.filter(
         Q(img_cat='road_camera')
         & Q(mark_flag='-1')
     )
+
     for result in query_result:
-        query_array.append(result)
+
+        query_array.append(result.img_name)
 
     random_num =random.randint(0, len(query_array))
-
+    return random_num
     #TODO:
     # get mark from web user_mark = 0 or 1
     # edit query_result[random_num].mark_flag = user_mark
     # contiues
-
-
-    print (query_array[random_num])
-    # img_name = '11_02_13.jpg'
-    # # push = models.ImgSet.objects.get(ImgSet)
-    # push = models.ImgSet.objects.filter(
-    #     Q(img_name__icontains=img_name)
-    #     & Q(mark_flag='-1')
-    # )
-
-
-    return render(request, "page_marking.html")
-
 
 
 def login(request):
@@ -105,6 +94,11 @@ def login(request):
 
 def marking(request):
     # TODO:
+    push_img = random_image_push()
+    print('1')
+    print(push_img)
     if request.method == 'GET':
-        random_image_push(request)
-    return render(request, "page_marking.html")
+        push_img = random_image_push()
+        print('2')
+        print(push_img)
+    return render(request, "page_marking.html", {"push_img": push_img})
