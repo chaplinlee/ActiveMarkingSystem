@@ -60,10 +60,10 @@ active learning alothgim
 '''
 		
 def cross_entroy(x):
-        loss = -np.sum(x*np.log(x))
-     	#print(x[0]*np.log(x[0])+x[1]*np.log(x[1])+x[2]*np.log(x[2]))
-        print(loss)
-        return loss
+    loss = -np.sum(x*np.log(x))
+    #print(x[0]*np.log(x[0])+x[1]*np.log(x[1])+x[2]*np.log(x[2]))
+    print(loss)
+    return loss
         
 def Al_query(input_pro,k):
         list_k={}
