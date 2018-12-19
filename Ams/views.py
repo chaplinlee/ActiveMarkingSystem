@@ -23,15 +23,12 @@ def data_set_input(requset):
         flag_tag = unmarked
         flag_tag_judgement = unmarked
 
-
         models.ImgSet.objects.create(
             img_name = name,
             img_cat = category,
             mark_flag = flag_tag,
             img_tag_judgement = flag_tag_judgement
         )
-
-
 
 def random_image_push(request):
     query_array = []
@@ -45,6 +42,24 @@ def random_image_push(request):
     # print(query_array[random_num])
     return query_array[random_num]
 
+def marking(request):
+    # TODO:
+
+    if request.method == 'POST':
+        # get value of radio button
+        radio_value = request.POST.get("flag")
+        print(radio_value)
+        # get path of picture
+        image_path = request.POST.get("image")
+        print(image_path)
+        # edit mark flag of ImgSet table
+        models.ImgSet.object.filter(
+            Q(img_name = 'image_path').edit(mark_flag).to(radio_value)
+        )
+        # repush image
+        random_image_push(request)
+        # return render(request, "page_marking.html", {})
+
 def login(request):
     if request.method == 'GET':
         # data_set_input(request)
@@ -55,13 +70,17 @@ def login(request):
         password = request.POST.get("password")
 
         if username == 'admin' and password == 'admin':
-            image_push = random_image_push(request)
-            return render(request, "page_marking.html", {"image_push": image_push})
+            return render(request, "page_marking.html")
         else:
             return render(request, "login.html", {"message": "Wrong password or username!"})
 
+def page_marking(request):
 
-def marking(request):
-    # TODO:
-    
-    return render(request, "page_marking.html", {"push_img": push_img})
+    image_push = ''
+
+    if request.method == 'GET':
+        image_push = random_image_push(request)
+    else:
+        marking(request)
+    return render(request, "page_marking.html", {"image_push": image_push})
+
