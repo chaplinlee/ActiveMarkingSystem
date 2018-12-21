@@ -30,7 +30,7 @@ def data_set_input(requset):
             img_tag_judgement = flag_tag_judgement
         )
 
-def random_image_push(request):
+def random_image_push(self):
     query_array = []
     query_result = models.ImgSet.objects.filter(
         Q(img_cat='road_camera')
@@ -42,23 +42,19 @@ def random_image_push(request):
     # print(query_array[random_num])
     return query_array[random_num]
 
-def marking(request):
+def user_marking(self):
     # TODO:
-
-    if request.method == 'POST':
-        # get value of radio button
-        radio_value = request.POST.get("flag")
-        print(radio_value)
-        # get path of picture
-        image_path = request.POST.get("image")
-        print(image_path)
-        # edit mark flag of ImgSet table
-        models.ImgSet.object.filter(
-            Q(img_name = 'image_path').edit(mark_flag).to(radio_value)
-        )
-        # repush image
-        random_image_push(request)
-        # return render(request, "page_marking.html", {})
+    # Get value of radio button
+    radio_value = request.POST.get("flag")
+    print(radio_value)
+    # Get path of picture
+    image_path = request.POST.get("image")
+    print(image_path)
+    # Edit mark flag of ImgSet table
+    models.ImgSet.objects.filter(img_name = image_path).update(mark_flag = str(radio_value))
+    # repush image?
+    # random_image_push(request)
+    # return render(request, "page_marking.html", {})?
 
 def login(request):
     if request.method == 'GET':
@@ -72,15 +68,30 @@ def login(request):
         if username == 'admin' and password == 'admin':
             return render(request, "page_marking.html")
         else:
-            return render(request, "login.html", {"message": "Wrong password or username!"})
+            return render(request, "page_marking.html")
+
+    # if request.method == "POST":
+    #     username = request.POST.get("username")
+    #     password = request.POST.get("password")
+    #
+    #     # admin user update
+    #     if not models.AdminMarker.objects.filter(user_name = 'admin', psd = 'admin'):
+    #         models.AdminMarker.objects.create(user_name = 'admin', psd = 'admin')
+    #
+    #     # user check
+    #     info = models.AdminMarker.objects.filter(user_name = username, psd = password)
+    #     if info:
+    #         return render(request, "page_marking.html")
+    # else:
+    #     return render(request, "login.html", {"message": "wrong psd or user"})
 
 def page_marking(request):
 
-    image_push = ''
-
     if request.method == 'GET':
-        image_push = random_image_push(request)
-    else:
-        marking(request)
-    return render(request, "page_marking.html", {"image_push": image_push})
+        image_push = random_image_push()
+        return render(request, "page_marking.html", {"image_push": image_push})
+    elif request.method == 'POST':
+        user_marking()
+        image_push = random_image_push()
+        return render(request, "page_marking.html", {"image_push": image_push})
 

@@ -22,6 +22,6 @@ urlpatterns = [
 
     # path('', views.index, name='index'),
     path('', views.login, name='login'),
-    path('', views.marking, name='marking'),
+    path('', views.page_marking, name='page_marking'),
 
 ]
