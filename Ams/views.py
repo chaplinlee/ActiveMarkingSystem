@@ -9,7 +9,7 @@ import random
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-def data_set_input(requset):
+def road_data_set_input():
 
     unmarked = '-1'  # unmarked img flag
     data_set_dir_path = '/data_set/road_cam/'
@@ -30,6 +30,14 @@ def data_set_input(requset):
             mark_flag = flag_tag,
             img_tag_judgement = flag_tag_judgement
         )
+
+def ground_data_set_input():
+    #TODO:
+    return 0
+
+def ground_image_push():
+    # TODO:
+    return 0
 
 def random_image_push():
     query_array = []
@@ -54,7 +62,9 @@ def user_marking(request):
 
 def login(request):
     if request.method == 'GET':
-        # data_set_input(request)
+        # Input data
+        # road_data_set_input()
+        # ground_data_set_input()
         return render(request, "login.html")
 
     else:
