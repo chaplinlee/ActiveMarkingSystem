@@ -6,7 +6,8 @@ import os
 from Ams import models
 from django.db.models import Q
 import random
-
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 def data_set_input(requset):
 
@@ -30,7 +31,7 @@ def data_set_input(requset):
             img_tag_judgement = flag_tag_judgement
         )
 
-def random_image_push(self):
+def random_image_push():
     query_array = []
     query_result = models.ImgSet.objects.filter(
         Q(img_cat='road_camera')
@@ -39,7 +40,7 @@ def random_image_push(self):
     for result in query_result:
         query_array.append(result.img_name)
     random_num = random.randint(0, len(query_array))
-    # print(query_array[random_num])
+    print(query_array[random_num])
     return query_array[random_num]
 
 def user_marking(self):
@@ -65,32 +66,20 @@ def login(request):
         username = request.POST.get("username")
         password = request.POST.get("password")
 
-        if username == 'admin' and password == 'admin':
-            return render(request, "page_marking.html")
+        if username == 'admin' and password == '123':
+            return HttpResponseRedirect(reverse('page_marking'))
         else:
-            return render(request, "page_marking.html")
 
-    # if request.method == "POST":
-    #     username = request.POST.get("username")
-    #     password = request.POST.get("password")
-    #
-    #     # admin user update
-    #     if not models.AdminMarker.objects.filter(user_name = 'admin', psd = 'admin'):
-    #         models.AdminMarker.objects.create(user_name = 'admin', psd = 'admin')
-    #
-    #     # user check
-    #     info = models.AdminMarker.objects.filter(user_name = username, psd = password)
-    #     if info:
-    #         return render(request, "page_marking.html")
-    # else:
-    #     return render(request, "login.html", {"message": "wrong psd or user"})
+            return HttpResponse('error user!')
 
 def page_marking(request):
 
     if request.method == 'GET':
         image_push = random_image_push()
+        print ("pg-mk-get")
         return render(request, "page_marking.html", {"image_push": image_push})
     elif request.method == 'POST':
+        print ("pg-mk-post")
         user_marking()
         image_push = random_image_push()
         return render(request, "page_marking.html", {"image_push": image_push})
