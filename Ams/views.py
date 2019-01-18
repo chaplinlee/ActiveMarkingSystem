@@ -12,7 +12,7 @@ from django.urls import reverse
 def data_set_input(requset):
 
     unmarked = '-1'  # unmarked img flag
-    data_set_dir_path = '/data_set/photo_cam1/'
+    data_set_dir_path = '/data_set/road_cam/'
     data_set_category = 'road_camera'
 
     path_dir = os.listdir('./static' + data_set_dir_path)
@@ -40,22 +40,17 @@ def random_image_push():
     for result in query_result:
         query_array.append(result.img_name)
     random_num = random.randint(0, len(query_array))
-    print(query_array[random_num])
     return query_array[random_num]
 
-def user_marking(self):
+def user_marking(request):
     # TODO:
     # Get value of radio button
     radio_value = request.POST.get("flag")
-    print(radio_value)
-    # Get path of picture
-    image_path = request.POST.get("image")
-    print(image_path)
-    # Edit mark flag of ImgSet table
+    # Get path of pushed image
+    image_path = request.POST.get("pushing_image").replace('/static','')
+    # Edit database
     models.ImgSet.objects.filter(img_name = image_path).update(mark_flag = str(radio_value))
-    # repush image?
-    # random_image_push(request)
-    # return render(request, "page_marking.html", {})?
+
 
 def login(request):
     if request.method == 'GET':
@@ -74,13 +69,12 @@ def login(request):
 
 def page_marking(request):
 
+
     if request.method == 'GET':
-        image_push = random_image_push()
-        print ("pg-mk-get")
-        return render(request, "page_marking.html", {"image_push": image_push})
-    elif request.method == 'POST':
-        print ("pg-mk-post")
-        user_marking()
-        image_push = random_image_push()
+        image_push = "/static" + random_image_push()
         return render(request, "page_marking.html", {"image_push": image_push})
 
+    elif request.method == 'POST':
+        user_marking(request)
+        image_push = "/static" + random_image_push()
+        return render(request, "page_marking.html", {"image_push": image_push})
