@@ -1,0 +1,40 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Set Active Marking System</title>
+</head>
+<body>
+    <script>
+    </script>
+    <table>
+        <tr>
+            <td>
+                <img src="/static/data_set/ground_cam/origin_img/origin_img_00.jpeg" name="image"/>
+            </td>
+            <td>
+                <img src="/static/data_set/ground_cam/tagged_img/tagged_img_00.jpeg" name="image"/>
+            </td>
+        </tr>
+    </table>
+
+
+    <form id="id_form" method="post">
+        <table>
+            <tr>
+                <td><p>该标记正确吗</p></td>
+            </tr>
+            <tr>
+                <td>
+                    <label><input name="flag" type="radio" value="1" />正确</label>
+                    <label><input name="flag" type="radio" value="0" />不正确</label>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="提交"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

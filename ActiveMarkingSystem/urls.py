@@ -23,5 +23,6 @@ urlpatterns = [
     # path('', views.index, name='index'),
     path('login/', views.login, name='login'),
     path('marking/', views.page_marking, name='page_marking'),
+    path('tagjudgement/', views.page_tag_judgement, name='tag_judgement')
 
 ]
