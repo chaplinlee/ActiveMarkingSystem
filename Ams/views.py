@@ -212,3 +212,18 @@ def page_marking(request):
 def page_tag_judgement(request):
 
     return render(request, "page_judgetag.html")
+
+def image_divide():
+    import cv2
+
+    img = cv2.imread("1.JPG")
+    print(img.shape)
+    for i in range(25):
+        for j in range(46):
+            p1 = i * 100;
+            q1 = j * 100;
+            p2 = p1 + 100;
+            q2 = q1 + 100;
+
+            cropped = img[p1:p2, q1:q2]  # 裁剪坐标为[y0:y1, x0:x1]
+            cv2.imwrite('xpicture/' + str(i) + '_' + str(j) + '.jpg', cropped)
