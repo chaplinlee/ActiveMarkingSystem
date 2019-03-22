@@ -10,6 +10,30 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 
+def login(request):
+    if request.method == 'GET':
+        # Input data
+
+        # road_data_set_input()
+        # ground_data_set_input()
+
+        return render(request, "login.html")
+
+    else:
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        if username == 'admin' and password == '123':
+            return HttpResponseRedirect(reverse('page_marking'))
+        else:
+
+            return HttpResponse('error user!')
+def index():
+    return render(request, "index.html")
+
+def main_page():
+    return render(request, "Main_page.html")
+
 # import matplotlib
 
 # matplotlib.use('Agg')
@@ -177,26 +201,6 @@ def user_marking(request):
     models.ImgSet.objects.filter(img_name = image_path).update(mark_flag = str(radio_value))
 
 
-def login(request):
-    if request.method == 'GET':
-        # Input data
-
-        # road_data_set_input()
-        # ground_data_set_input()
-
-        return render(request, "login.html")
-
-    else:
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-
-
-
-        if username == 'admin' and password == '123':
-            return HttpResponseRedirect(reverse('page_marking'))
-        else:
-
-            return HttpResponse('error user!')
 
 def page_marking(request):
 
