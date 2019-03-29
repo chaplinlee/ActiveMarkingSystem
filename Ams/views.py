@@ -101,6 +101,8 @@ def page_helmet_judge(request):
         image_push = "/static" + random_image_push('helmet_data')
         return render(request, "page_helmetjudge.html", {"image_push": image_push})
 
+def page_test(requset):
+    return  render(requset, "page_test.html")
 
 def page_tag_judgement(request):
 

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>Image to use:</p>
+    <img id="helmet" src="../static/data_set/safetyHelmet/helmet2.jpeg" alt="helmet"><p>Canvas:</p>
+    <canvas id="myCanvas" width="1000" height="500" ></canvas>
+
+    <script>
+        {#img.onload = function() {#}
+        {#            ctx.drawImage(img, 10, 10, 856, 480);#}
+        {#        }#}
+        var c=document.getElementById("myCanvas");
+        var ctx=c.getContext("2d");
+        var img=document.getElementById("scream");
+
+        ctx.beginPath();
+        ctx.lineWidth="4";
+        ctx.strokeStyle="blue";
+        {#x, y, width, height#}
+        ctx.rect(30,30,50,50);
+        ctx.stroke();
+        
+        {#const startPoint = [29, 24], endPoint = [124, 52];#}
+        {#        ctx.strokeStyle = "blue";#}
+        {#        ctx.strokeRect(#}
+        {#            startPoint[0] * zoom.width,#}
+        {#            startPoint[1] * zoom.height,#}
+        {#            (endPoint[0] - startPoint[0]) * zoom.width,#}
+        {#            (endPoint[1] - startPoint[1]) * zoom.height#}
+        {#        );#}
+{#        const img = new Image();#}
+{#        const canvas = document.querySelector("#myCanvas");#}
+{#            let ctx;#}
+{#            ctx = canvas.getContext("2d");#}
+{#            // 当图片加载完再动手#}
+{#            img.onload = function () {#}
+{#                // 画布大小和图片尺寸不一样算好比例#}
+{#                const cWidth = canvas.width, cHeight = canvas.height;#}
+{#                const imgWidth = img.naturalWidth, imgHeight = img.naturalHeight;#}
+{#                const zoom = {#}
+{#                    width: cWidth / imgWidth,#}
+{#                    height: cHeight / imgHeight,#}
+{#                };#}
+{#                // 以图画底#}
+{#                ctx.drawImage(img, 0, 0, cWidth, cHeight);#}
+{#                // 假设左上角的point 29,24 这是针对原图的坐标系#}
+{#                // 假设右下角的point 124,52 这是针对原图的坐标系#}
+{#                const startPoint = [29, 24], endPoint = [124, 52];#}
+{#                // https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/strokeRect#}
+{#                ctx.strokeStyle = "blue";#}
+{#                ctx.strokeRect(#}
+{#                    startPoint[0] * zoom.width,#}
+{#                    startPoint[1] * zoom.height,#}
+{#                    (endPoint[0] - startPoint[0]) * zoom.width,#}
+{#                    (endPoint[1] - startPoint[1]) * zoom.height#}
+{#                );#}
+{#            }#}
+{##}
+{#            // 动手#}
+{#            img.src = "../static/data_set/safetyHelmet/helmet2.jpeg";#}
+    </script>
+</body>
+
+</html>
