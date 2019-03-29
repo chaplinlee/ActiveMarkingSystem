@@ -92,7 +92,15 @@ def page_marking(request):
 
 def page_helmet_judge(request):
 
-    return render(request, "page_helmetjudge.html")
+    if request.method == 'GET':
+        image_push = "/static" + random_image_push('helmet_data')
+        return render(request, "page_helmetjudge.html", {"image_push": image_push})
+
+    elif request.method == 'POST':
+        user_marking(request)
+        image_push = "/static" + random_image_push('helmet_data')
+        return render(request, "page_helmetjudge.html", {"image_push": image_push})
+
 
 def page_tag_judgement(request):
 
