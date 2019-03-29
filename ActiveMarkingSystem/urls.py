@@ -24,5 +24,5 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('marking/', views.page_marking, name='page_marking'),
     path('tagjudgement/', views.page_tag_judgement, name='tag_judgement'),
-
+    path('helmetjudge/', views.page_helmet_judge, name='hel_metjudge'),
 ]
