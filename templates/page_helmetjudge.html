@@ -1,28 +1,35 @@
-{% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
     <meta charset="UTF-8">
-    <title>Image Set Active Marking System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 </head>
-<body>
-    <script>
 
+<body>
+    <img id="helmet" src="../static/data_set/safetyHelmet/helmet2.jpeg" alt="helmet" hidden>
+    <canvas id="myCanvas" width="1000" height="500" ></canvas>
+
+    <script>
+        var c=document.getElementById("myCanvas");
+        var ctx=c.getContext("2d");
+        var img=document.getElementById("helmet");
+        ctx.drawImage(img, 10, 10, 856, 480)
+
+        ctx.beginPath();
+        ctx.lineWidth="4";
+        ctx.strokeStyle="blue";
+        {#x, y, width, height#}
+        ctx.rect(326,30,50,50);
+        ctx.stroke();
     </script>
-    <table>
-        <tr>
-            <td>
-                <img src="{{ image_push }}" name="image"/>
-            </td>
-        </tr>
-    </table>
+
     <form id="id_form" method="post">
         <table>
             <tr>
-                <td><input type="text" name="pushing_image" style="display:none" value="{{ image_push }}"></td>
-            </tr>
-            <tr>
-                <td><p>此时街道拥堵吗？</p></td>
+                <td><p>头盔标记正确吗吗？</p></td>
             </tr>
             <tr>
                 <td>
@@ -36,4 +43,5 @@
         </table>
     </form>
 </body>
+
 </html>
