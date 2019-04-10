@@ -27,7 +27,7 @@ def login(request):
         else:
 
             return HttpResponse('error user!')
-def index():
+def index(request):
     return render(request, "index.html")
 
 def main_page():

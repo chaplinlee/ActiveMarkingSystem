@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <title>Image Set Active Marking System</title>
 </head>
-<body>
-    <frame name="frame1" src="../age_marking.html">
+    <a href="{% url 'login' %}"><input type=button value="登录" ></a>
+    <a href="{% url 'page_marking' %}"><input type=button value="标记页面" ></a>
+    <a href="{% url 'page_marking' %}"><input type=button value="CNN标记页面" ></a>
+    <a href="{% url 'hel_metjudge' %}"><input type=button value="头盔标记页面" ></a>
+    <a href="{% url 'test' %}"><input type=button value="测试页面" ></a>
+
+
 </body>
 </html>

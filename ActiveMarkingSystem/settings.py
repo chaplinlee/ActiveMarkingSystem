@@ -55,7 +55,7 @@ ROOT_URLCONF = 'ActiveMarkingSystem.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'templates').replace("\\","/")]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -121,5 +121,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(os.path.join(BASE_DIR, 'static')),
+    os.path.join(os.path.join(BASE_DIR, 'static').replace("\\","/"),),
 )

@@ -16,14 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Ams import views
+from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
+    url(r'^$', views.index, name='index'),
     path('index/', views.index, name='index'),
     path('login/', views.login, name='login'),
     path('marking/', views.page_marking, name='page_marking'),
     path('tagjudgement/', views.page_tag_judgement, name='tag_judgement'),
     path('helmetjudge/', views.page_helmet_judge, name='hel_metjudge'),
     path('test/', views.page_test, name='test'),
+
+    # path("", include(('learning_logs.urls','learning_logs'), namespace='learning_logs')),
+    # url(r'^login/', views.login),
+
+    # path('^login/$', views.login, name='login'),
+    # url(r'^login/$', views.login, name='login'),
 ]
