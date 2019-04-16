@@ -55,7 +55,9 @@ def road_data_set_input():
             mark_flag = flag_tag,
             img_tag_judgement = flag_tag_judgement
         )
+def helmet_dataset_input():
 
+    return 0
 
 
 def random_image_push(image_category):
