@@ -23,6 +23,12 @@ class TaggedImgSet(models.Model):
     img_tag_judgement = models.CharField(max_length=200)  # image tag judgement
 
 #helmet mark txt file
-class HelDataFile(models.Model):
-    file_path
-    
+class HelmetData(models.Model):
+    file_name = models.CharField(max_length=100)
+    x_central_point = models.FloatField(max_length = 20)
+    y_central_point = models.FloatField(max_length = 20)
+    rect_width = models.FloatField(max_length = 20)
+    rect_height = models.FloatField(max_length = 20)
+    is_wearing = models.CharField(max_length=10)
+    mark_flag = models.CharField(max_length=10)
+    tag_judgement = models.CharField(max_length=10)

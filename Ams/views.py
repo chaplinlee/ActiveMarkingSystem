@@ -57,6 +57,44 @@ def road_data_set_input():
         )
 def helmet_dataset_input():
 
+    unmarked = '-1'  # unmarked img flag
+    data_dir_path = './static/data_set/safetyHelmet/heldatadir/'
+    category = 'helmet_data'
+
+    path_dir = os.listdir(data_dir_path)
+    for all_dir in path_dir:
+        name = os.path.join(all_dir)
+
+        f = open(data_dir_path, "r")
+        str0 = f.read()
+        f.close()
+        str1 = str0.split('\n')
+        for data_row in str1:
+            str2 = data_row.split(' ')
+            x_central = str2[0]
+            y_central = str2[1]
+            rect_width = str2[2]
+            rect_height = str2[3]
+
+            models.HelmetData.objects.create(
+                file_name=name,
+                x_central_point=x_central,
+                y_central_point=y_central,
+                rect_width=rect_width,
+                rect_height=rect_height,
+                is_wearing=unmarked,
+                mark_flag=unmarked,
+                tag_judgement=unmarked
+            )
+            models.ImgSet.objects.create(
+                img_name=data_dir_path+name,
+                img_cat=category,
+                mark_flag=unmarked,
+                img_tag_judgement=unmarked
+            )
+
+
+
     return 0
 
 
