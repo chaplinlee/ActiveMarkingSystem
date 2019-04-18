@@ -87,12 +87,13 @@ def helmet_dataset_input():
                 mark_flag=unmarked,
                 tag_judgement=unmarked
             )
-            models.ImgSet.objects.create(
-                img_name=dataset_dir_path+name,
-                img_cat=category,
-                mark_flag=unmarked,
-                img_tag_judgement=unmarked
-            )
+        models.ImgSet.objects.create(
+            img_name=dataset_dir_path + name.replace('txt', 'jpeg'),
+            img_cat=category,
+            mark_flag=unmarked,
+            img_tag_judgement=unmarked
+        )
+
 
 def random_image_push(image_category):
     query_array = []
