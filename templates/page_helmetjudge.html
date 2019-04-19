@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 
@@ -9,20 +10,37 @@
 </head>
 
 <body>
-    <img id="helmet" src="../static/data_set/safetyHelmet/helmet2.jpeg" alt="helmet" hidden>
+    <img id="helmet" src="{{ image_push }}" alt="helmet" hidden>
     <canvas id="myCanvas" width="1000" height="500" ></canvas>
 
     <script>
-        var c=document.getElementById("myCanvas");
-        var ctx=c.getContext("2d");
-        var img=document.getElementById("helmet");
-        ctx.drawImage(img, 10, 10, 856, 480)
+
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        var img = document.getElementById("helmet");
+
+        {#set canvas size#}
+        var imgWidth = img.width;
+        var imgHeight = img.height;
+        canvas.width = imgWidth;
+        canvas.height = imgHeight;
+
+        {#draw image#}
+        ctx.drawImage(img, 0, 0, imgWidth, imgHeight);
+
+        {#draw rectangle#}
+        var x = 0.501042 * imgWidth;
+        var y = 0.539583 * imgHeight;
+        var width = 0.056250 * imgWidth;
+        var height = 0.104167 * imgHeight;
+        var x_leftTopPoint = x - width/2;
+        var y_leftTopPoint = y - height/2;
 
         ctx.beginPath();
-        ctx.lineWidth="4";
-        ctx.strokeStyle="blue";
+        ctx.lineWidth = "2";
+        ctx.strokeStyle = "blue";
         {#x, y, width, height#}
-        ctx.rect(326,30,50,50);
+        ctx.rect(x_leftTopPoint, y_leftTopPoint, width, height);
         ctx.stroke();
     </script>
 

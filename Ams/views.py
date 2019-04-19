@@ -12,10 +12,6 @@ from django.urls import reverse
 # main page construction function
 def login(request):
     if request.method == 'GET':
-        # Input data
-
-        # road_data_set_input()
-        # ground_data_set_input()
         return render(request, "login.html")
 
     else:
@@ -28,6 +24,11 @@ def login(request):
 
             return HttpResponse('error user!')
 def index(request):
+    # Input data
+
+    # road_data_set_input()
+    # ground_data_set_input()
+
     helmet_dataset_input()
     return render(request, "index.html")
 
@@ -59,14 +60,14 @@ def road_data_set_input():
 def helmet_dataset_input():
 
     unmarked = '-1'  # unmarked img flag
-    dataset_dir_path = './static/data_set/safetyHelmet/heldatadir/'
+    dataset_dir_path = '/data_set/safetyHelmet/heldatadir/'
     category = 'helmet_data'
 
-    path_dir = os.listdir(dataset_dir_path)
+    path_dir = os.listdir('./static' + dataset_dir_path)
     for all_dir in path_dir:
         name = os.path.join(all_dir)
 
-        f = open(dataset_dir_path + name, "r")
+        f = open('./static' + dataset_dir_path + name, "r")
         str0 = f.read()
         f.close()
         str1 = str0.split('\n')
@@ -88,12 +89,21 @@ def helmet_dataset_input():
                 tag_judgement=unmarked
             )
         models.ImgSet.objects.create(
-            img_name=dataset_dir_path + name.replace('txt', 'jpeg'),
+            img_name=dataset_dir_path.replace('heldatadir/', '') + name.replace('txt', 'jpeg'),
             img_cat=category,
             mark_flag=unmarked,
             img_tag_judgement=unmarked
         )
 
+def helmet_image_push(image_category, filename):
+    query_array = []
+    query_result = models.ImgSet.objects.filter(
+        Q(img_cat = image_category)
+        & Q(img_name__contains=filename)
+    )
+    for result in query_result:
+        query_array.append(result.img_name)
+    return query_array[0]
 
 def random_image_push(image_category):
     query_array = []
@@ -114,6 +124,8 @@ def user_marking(request):
     # Edit database
     models.ImgSet.objects.filter(img_name = image_path).update(mark_flag = str(radio_value))
 
+def helmet_marking():
+    return 0
 
 def page_marking(request):
 
@@ -126,16 +138,15 @@ def page_marking(request):
         image_push = "/static" + random_image_push('road_camera')
         return render(request, "page_marking.html", {"image_push": image_push})
 
-
 def page_helmet_judge(request):
 
     if request.method == 'GET':
-        image_push = "/static" + random_image_push('helmet_data')
+        image_push = "/static" + helmet_image_push('helmet_data', '0.jpeg')
         return render(request, "page_helmetjudge.html", {"image_push": image_push})
 
     elif request.method == 'POST':
         user_marking(request)
-        image_push = "/static" + random_image_push('helmet_data')
+        image_push = "/static" + helmet_image_push('helmet_data', '0.jpeg')
         return render(request, "page_helmetjudge.html", {"image_push": image_push})
 
 def page_test(requset):
