@@ -29,7 +29,7 @@ def index(request):
     # road_data_set_input()
     # ground_data_set_input()
 
-    helmet_dataset_input()
+    # helmet_dataset_input()
     return render(request, "index.html")
 
 def main_page():
@@ -95,16 +95,6 @@ def helmet_dataset_input():
             img_tag_judgement=unmarked
         )
 
-def helmet_image_push(image_category, filename):
-    query_array = []
-    query_result = models.ImgSet.objects.filter(
-        Q(img_cat = image_category)
-        & Q(img_name__contains=filename)
-    )
-    for result in query_result:
-        query_array.append(result.img_name)
-    return query_array[0]
-
 def random_image_push(image_category):
     query_array = []
     query_result = models.ImgSet.objects.filter(
@@ -115,6 +105,27 @@ def random_image_push(image_category):
         query_array.append(result.img_name)
     random_num = random.randint(0, len(query_array))
     return query_array[random_num]
+
+def helmet_image_push(image_category, filename):
+    query_array = []
+    query_result = models.ImgSet.objects.filter(
+        Q(img_cat = image_category)
+        & Q(img_name__contains=filename)
+    )
+    for result in query_result:
+        query_array.append(result.img_name)
+    return query_array[0]
+
+def get_helmet_rect(filename):
+    query_data = {}
+    query_result = models.HelmetData.objects.filter(
+        Q(file_name = filename)
+    )
+    print(query_result)
+    for result in query_result:
+
+        query_array.append(result.)
+    return query_array[0]
 
 def user_marking(request):
     # Get value of radio button
@@ -142,6 +153,7 @@ def page_helmet_judge(request):
 
     if request.method == 'GET':
         image_push = "/static" + helmet_image_push('helmet_data', '0.jpeg')
+        image_rect = get_helmet_rect('0.txt')
         return render(request, "page_helmetjudge.html", {"image_push": image_push})
 
     elif request.method == 'POST':
