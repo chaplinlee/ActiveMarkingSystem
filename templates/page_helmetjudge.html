@@ -18,6 +18,7 @@
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
         var img = document.getElementById("helmet");
+        var rect_data = {{ rect_data | safe }};
 
         {#set canvas size#}
         var imgWidth = img.width;
@@ -29,10 +30,10 @@
         ctx.drawImage(img, 0, 0, imgWidth, imgHeight);
 
         {#draw rectangle#}
-        var x = 0.501042 * imgWidth;
-        var y = 0.539583 * imgHeight;
-        var width = 0.056250 * imgWidth;
-        var height = 0.104167 * imgHeight;
+        var x = Object.values(rect_data)[1] * imgWidth;
+        var y = Object.values(rect_data)[2] * imgHeight;
+        var width = Object.values(rect_data)[3] * imgWidth;
+        var height = Object.values(rect_data)[4] * imgHeight;
         var x_leftTopPoint = x - width/2;
         var y_leftTopPoint = y - height/2;
 

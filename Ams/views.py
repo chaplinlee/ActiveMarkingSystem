@@ -8,7 +8,7 @@ from django.db.models import Q
 import random
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-
+import json
 # main page construction function
 def login(request):
     if request.method == 'GET':
@@ -117,15 +117,30 @@ def helmet_image_push(image_category, filename):
     return query_array[0]
 
 def get_helmet_rect(filename):
-    query_data = {}
-    query_result = models.HelmetData.objects.filter(
-        Q(file_name = filename)
-    )
-    print(query_result)
-    for result in query_result:
+    query_id_array = []
+    file_data = []
 
-        query_array.append(result.)
-    return query_array[0]
+    query_file_result = models.HelmetData.objects.filter(
+        Q(file_name = filename)
+        & Q(mark_flag = '-1')
+    )
+    for result in query_file_result:
+        query_id_array.append(result.id)
+    random_num = random.randint(0, len(query_id_array))
+    query_data_result = models.HelmetData.objects.filter(
+        Q(id=query_id_array[random_num])
+    )
+    for result in query_data_result:
+        file_data.append(result.file_name)
+        file_data.append(result.x_central_point)
+        file_data.append(result.y_central_point)
+        file_data.append(result.rect_width)
+        file_data.append(result.rect_height)
+        file_data.append(result.is_wearing)
+        file_data.append(result.mark_flag)
+        file_data.append(result.tag_judgement)
+
+    return file_data
 
 def user_marking(request):
     # Get value of radio button
@@ -150,11 +165,30 @@ def page_marking(request):
         return render(request, "page_marking.html", {"image_push": image_push})
 
 def page_helmet_judge(request):
+    image_rect_data = {
+        'file_name':0,
+        'x_central_point':0,
+        'y_central_point':0,
+        'rect_width':0,
+        'rect_height':0,
+        'is_wearing':0,
+        'mark_flag':0,
+        'tag_judgement':0
+        }
 
     if request.method == 'GET':
         image_push = "/static" + helmet_image_push('helmet_data', '0.jpeg')
         image_rect = get_helmet_rect('0.txt')
-        return render(request, "page_helmetjudge.html", {"image_push": image_push})
+        image_rect_data['file_name'] = image_rect[0];
+        image_rect_data['x_central_point'] = image_rect[1];
+        image_rect_data['y_central_point'] = image_rect[2];
+        image_rect_data['rect_width'] = image_rect[3];
+        image_rect_data['rect_height'] = image_rect[4];
+        image_rect_data['is_wearing'] = image_rect[5];
+        image_rect_data['mark_flag'] = image_rect[6];
+        image_rect_data['tag_judgement'] = image_rect[7];
+        print(image_rect_data)
+        return render(request, "page_helmetjudge.html", {"image_push": image_push, "rect_data": json.dumps(image_rect_data)})
 
     elif request.method == 'POST':
         user_marking(request)
