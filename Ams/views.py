@@ -117,6 +117,16 @@ def helmet_image_push(image_category, filename):
     return query_array[0]
 
 def get_helmet_rect(filename):
+    image_rect_data = {
+        'file_name': 0,
+        'x_central_point': 0,
+        'y_central_point': 0,
+        'rect_width': 0,
+        'rect_height': 0,
+        'is_wearing': 0,
+        'mark_flag': 0,
+        'tag_judgement': 0
+    }
     query_id_array = []
     file_data = []
 
@@ -124,23 +134,32 @@ def get_helmet_rect(filename):
         Q(file_name = filename)
         & Q(mark_flag = '-1')
     )
-    for result in query_file_result:
-        query_id_array.append(result.id)
-    random_num = random.randint(0, len(query_id_array))
-    query_data_result = models.HelmetData.objects.filter(
-        Q(id=query_id_array[random_num])
-    )
-    for result in query_data_result:
-        file_data.append(result.file_name)
-        file_data.append(result.x_central_point)
-        file_data.append(result.y_central_point)
-        file_data.append(result.rect_width)
-        file_data.append(result.rect_height)
-        file_data.append(result.is_wearing)
-        file_data.append(result.mark_flag)
-        file_data.append(result.tag_judgement)
+    for id_result in query_file_result:
+        query_id_array.append(id_result.id)
 
-    return file_data
+    query_data_result = models.HelmetData.objects.filter(
+        Q(id=query_id_array[0])
+    )
+    for row in query_data_result:
+        file_data.append(row.file_name)
+        file_data.append(row.x_central_point)
+        file_data.append(row.y_central_point)
+        file_data.append(row.rect_width)
+        file_data.append(row.rect_height)
+        file_data.append(row.is_wearing)
+        file_data.append(row.mark_flag)
+        file_data.append(row.tag_judgement)
+
+    image_rect_data['file_name'] = file_data[0];
+    image_rect_data['x_central_point'] = file_data[1];
+    image_rect_data['y_central_point'] = file_data[2];
+    image_rect_data['rect_width'] = file_data[3];
+    image_rect_data['rect_height'] = file_data[4];
+    image_rect_data['is_wearing'] = file_data[5];
+    image_rect_data['mark_flag'] = file_data[6];
+    image_rect_data['tag_judgement'] = file_data[7];
+
+    return image_rect_data
 
 def user_marking(request):
     # Get value of radio button
@@ -165,30 +184,15 @@ def page_marking(request):
         return render(request, "page_marking.html", {"image_push": image_push})
 
 def page_helmet_judge(request):
-    image_rect_data = {
-        'file_name':0,
-        'x_central_point':0,
-        'y_central_point':0,
-        'rect_width':0,
-        'rect_height':0,
-        'is_wearing':0,
-        'mark_flag':0,
-        'tag_judgement':0
-        }
+
+    image_rect = {}
 
     if request.method == 'GET':
         image_push = "/static" + helmet_image_push('helmet_data', '0.jpeg')
         image_rect = get_helmet_rect('0.txt')
-        image_rect_data['file_name'] = image_rect[0];
-        image_rect_data['x_central_point'] = image_rect[1];
-        image_rect_data['y_central_point'] = image_rect[2];
-        image_rect_data['rect_width'] = image_rect[3];
-        image_rect_data['rect_height'] = image_rect[4];
-        image_rect_data['is_wearing'] = image_rect[5];
-        image_rect_data['mark_flag'] = image_rect[6];
-        image_rect_data['tag_judgement'] = image_rect[7];
-        print(image_rect_data)
-        return render(request, "page_helmetjudge.html", {"image_push": image_push, "rect_data": json.dumps(image_rect_data)})
+
+        print(image_rect)
+        return render(request, "page_helmetjudge.html", {"image_push": image_push, "rect_data": json.dumps(image_rect)})
 
     elif request.method == 'POST':
         user_marking(request)
