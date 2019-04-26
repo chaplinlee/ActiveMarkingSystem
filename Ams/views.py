@@ -24,12 +24,7 @@ def login(request):
 
             return HttpResponse('error user!')
 def index(request):
-    # Input data
 
-    # road_data_set_input()
-    # ground_data_set_input()
-
-    # helmet_dataset_input()
     return render(request, "index.html")
 
 def main_page():
@@ -210,6 +205,12 @@ def page_helmet_judge(request):
         return render(request, "page_helmetjudge.html", {"image_push": image_push, "rect_data": json.dumps(image_rect)})
 
 def page_test(requset):
+    # Input data
+    #
+    # road_data_set_input()
+    # ground_data_set_input()
+
+    helmet_dataset_input()
     return  render(requset, "page_test.html")
 
 def page_tag_judgement(request):

@@ -28,6 +28,7 @@ urlpatterns = [
     path('helmetjudge/', views.page_helmet_judge, name='hel_metjudge'),
     path('test/', views.page_test, name='test'),
 
+
     # path("", include(('learning_logs.urls','learning_logs'), namespace='learning_logs')),
     # url(r'^login/', views.login),
 
