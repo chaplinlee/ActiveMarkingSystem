@@ -10,8 +10,11 @@
 </head>
 
 <body>
-    <img id="helmet" src="{{ image_push }}" alt="helmet" hidden>
-    <canvas id="myCanvas" width="1000" height="500" ></canvas>
+    <div style="display: none">
+        <img id="helmet" src="{{ image_push }}" alt="helmet">
+    </div>
+
+    <canvas id="myCanvas"></canvas>
 
     <script>
 
@@ -30,10 +33,10 @@
         ctx.drawImage(img, 0, 0, imgWidth, imgHeight);
 
         {#draw rectangle#}
-        var x = Object.values(rect_data)[1] * imgWidth;
-        var y = Object.values(rect_data)[2] * imgHeight;
-        var width = Object.values(rect_data)[3] * imgWidth;
-        var height = Object.values(rect_data)[4] * imgHeight;
+        var x = Object.values(rect_data)[2] * imgWidth;
+        var y = Object.values(rect_data)[3] * imgHeight;
+        var width = Object.values(rect_data)[4] * imgWidth;
+        var height = Object.values(rect_data)[5] * imgHeight;
         var x_leftTopPoint = x - width/2;
         var y_leftTopPoint = y - height/2;
 
@@ -43,17 +46,28 @@
         {#x, y, width, height#}
         ctx.rect(x_leftTopPoint, y_leftTopPoint, width, height);
         ctx.stroke();
+
+
+        window.onload = function () {
+            var fucking_image_id_cant_get_it = document.getElementById("image_id");
+            fucking_image_id_cant_get_it.value = Object.values(rect_data)[0];
+        };
+
     </script>
 
     <form id="id_form" method="post">
+
         <table>
             <tr>
-                <td><p>头盔标记正确吗吗？</p></td>
+                <td><input type="text" name="image_name" id="image_id" style="display: none"></td>
+            </tr>
+            <tr>
+                <td><p>图片中矩形框里的人戴头盔了吗？</p></td>
             </tr>
             <tr>
                 <td>
-                    <label><input name="flag" type="radio" value="1" />正确</label>
-                    <label><input name="flag" type="radio" value="0" />不正确</label>
+                    <label><input name="flag" type="radio" value="1" />戴了头盔</label>
+                    <label><input name="flag" type="radio" value="0" />没有戴头盔</label>
                 </td>
             </tr>
             <tr>

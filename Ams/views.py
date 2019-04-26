@@ -118,6 +118,7 @@ def helmet_image_push(image_category, filename):
 
 def get_helmet_rect(filename):
     image_rect_data = {
+        'id':0,
         'file_name': 0,
         'x_central_point': 0,
         'y_central_point': 0,
@@ -141,6 +142,7 @@ def get_helmet_rect(filename):
         Q(id=query_id_array[0])
     )
     for row in query_data_result:
+        file_data.append(row.id)
         file_data.append(row.file_name)
         file_data.append(row.x_central_point)
         file_data.append(row.y_central_point)
@@ -150,15 +152,15 @@ def get_helmet_rect(filename):
         file_data.append(row.mark_flag)
         file_data.append(row.tag_judgement)
 
-    image_rect_data['file_name'] = file_data[0];
-    image_rect_data['x_central_point'] = file_data[1];
-    image_rect_data['y_central_point'] = file_data[2];
-    image_rect_data['rect_width'] = file_data[3];
-    image_rect_data['rect_height'] = file_data[4];
-    image_rect_data['is_wearing'] = file_data[5];
-    image_rect_data['mark_flag'] = file_data[6];
-    image_rect_data['tag_judgement'] = file_data[7];
-
+    image_rect_data['id'] = file_data[0]
+    image_rect_data['file_name'] = file_data[1]
+    image_rect_data['x_central_point'] = file_data[2]
+    image_rect_data['y_central_point'] = file_data[3]
+    image_rect_data['rect_width'] = file_data[4]
+    image_rect_data['rect_height'] = file_data[5]
+    image_rect_data['is_wearing'] = file_data[6]
+    image_rect_data['mark_flag'] = file_data[7]
+    image_rect_data['tag_judgement'] = file_data[8]
     return image_rect_data
 
 def user_marking(request):
@@ -169,8 +171,18 @@ def user_marking(request):
     # Edit database
     models.ImgSet.objects.filter(img_name = image_path).update(mark_flag = str(radio_value))
 
-def helmet_marking():
-    return 0
+def helmet_marking(request):
+    # Get value of radio button
+    radio_value = request.POST.get("flag")
+    # Get path of pushed image
+        # image_path = request.POST.get("pushing_image").replace('/static', '')
+    image_id = request.POST.get("image_name")
+    # Edit database
+
+    print(radio_value)
+    print(image_id)
+    models.HelmetData.objects.filter(id=image_id).update(is_wearing = str(radio_value))
+    models.HelmetData.objects.filter(id=image_id).update(mark_flag = '1')
 
 def page_marking(request):
 
@@ -185,19 +197,17 @@ def page_marking(request):
 
 def page_helmet_judge(request):
 
-    image_rect = {}
-
     if request.method == 'GET':
         image_push = "/static" + helmet_image_push('helmet_data', '0.jpeg')
         image_rect = get_helmet_rect('0.txt')
 
-        print(image_rect)
         return render(request, "page_helmetjudge.html", {"image_push": image_push, "rect_data": json.dumps(image_rect)})
 
     elif request.method == 'POST':
-        user_marking(request)
+        helmet_marking(request)
+        image_rect = get_helmet_rect('0.txt')
         image_push = "/static" + helmet_image_push('helmet_data', '0.jpeg')
-        return render(request, "page_helmetjudge.html", {"image_push": image_push})
+        return render(request, "page_helmetjudge.html", {"image_push": image_push, "rect_data": json.dumps(image_rect)})
 
 def page_test(requset):
     return  render(requset, "page_test.html")
@@ -213,12 +223,12 @@ def image_divide():
     print(img.shape)
     for i in range(25):
         for j in range(46):
-            p1 = i * 100;
-            q1 = j * 100;
-            p2 = p1 + 100;
-            q2 = q1 + 100;
+            p1 = i * 100
+            q1 = j * 100
+            p2 = p1 + 100
+            q2 = q1 + 100
 
-            cropped = img[p1:p2, q1:q2]  # 裁剪坐标为[y0:y1, x0:x1]
+            cropped = img[p1:p2, q1:q2]  # point[y0:y1, x0:x1]
             cv2.imwrite('xpicture/' + str(i) + '_' + str(j) + '.jpg', cropped)
 
 
