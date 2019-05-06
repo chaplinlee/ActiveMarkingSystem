@@ -131,8 +131,10 @@ def get_helmet_rect(filename):
         Q(file_name = filename)
         & Q(mark_flag = '-1')
     )
+
     for id_result in query_file_result:
         query_id_array.append(id_result.id)
+
 
     query_data_result = models.HelmetData.objects.filter(
         Q(id=query_id_array[0])
@@ -192,8 +194,10 @@ def page_marking(request):
 def page_helmet_judge(request):
 
     if request.method == 'GET':
+
         image_name = helmet_image_push('helmet_data')
-        txt_name = image_name.replace('jpg','txt')
+        txt_name = image_name.replace('jpg', 'txt')
+
         image_push = "/static/data_set/safetyHelmet/" + image_name
         image_rect = get_helmet_rect(txt_name)
 
@@ -201,14 +205,19 @@ def page_helmet_judge(request):
 
     elif request.method == 'POST':
         helmet_marking(request)
-        image_rect = get_helmet_rect('0.txt')
-        image_push = "/static" + helmet_image_push('helmet_data')
+
+        image_name = helmet_image_push('helmet_data')
+        txt_name = image_name.replace('jpg', 'txt')
+
+        image_push = "/static/data_set/safetyHelmet/" + image_name
+        image_rect = get_helmet_rect(txt_name)
+
         return render(request, "page_helmetjudge.html", {"image_push": image_push, "rect_data": json.dumps(image_rect)})
 
 def page_test(requset):
     # Input data
     #
-    road_data_set_input()
+    # road_data_set_input()
     # ground_data_set_input()
 
     helmet_dataset_input()
