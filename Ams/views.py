@@ -84,7 +84,7 @@ def helmet_dataset_input():
                 tag_judgement=unmarked
             )
         models.ImgSet.objects.create(
-            img_name=dataset_dir_path.replace('heldatadir/', '') + name.replace('txt', 'jpeg'),
+            img_name=dataset_dir_path.replace('heldatadir/', '') + name.replace('txt', 'jpg'),
             img_cat=category,
             mark_flag=unmarked,
             img_tag_judgement=unmarked
@@ -193,7 +193,8 @@ def page_marking(request):
 def page_helmet_judge(request):
 
     if request.method == 'GET':
-        image_push = "/static" + helmet_image_push('helmet_data', '0.jpeg')
+        image_push = "/static" + helmet_image_push('helmet_data', '0.'
+                                                                  'jpg')
         image_rect = get_helmet_rect('0.txt')
 
         return render(request, "page_helmetjudge.html", {"image_push": image_push, "rect_data": json.dumps(image_rect)})
@@ -201,7 +202,7 @@ def page_helmet_judge(request):
     elif request.method == 'POST':
         helmet_marking(request)
         image_rect = get_helmet_rect('0.txt')
-        image_push = "/static" + helmet_image_push('helmet_data', '0.jpeg')
+        image_push = "/static" + helmet_image_push('helmet_data', '0.jpg')
         return render(request, "page_helmetjudge.html", {"image_push": image_push, "rect_data": json.dumps(image_rect)})
 
 def page_test(requset):
