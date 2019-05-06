@@ -1,4 +1,5 @@
 # Create your views here.
+# encoding=utf8
 from django.http import HttpResponse
 from django.shortcuts import render
 import sqlite3
@@ -61,11 +62,10 @@ def helmet_dataset_input():
     path_dir = os.listdir('./static' + dataset_dir_path)
     for all_dir in path_dir:
         name = os.path.join(all_dir)
-
-        f = open('./static' + dataset_dir_path + name, "r")
+        f = open('./static' + dataset_dir_path + name)
         str0 = f.read()
         f.close()
-        str1 = str0.split('\n')
+        str1 = str0.strip().split('\n')
         for data_row in str1:
             str2 = data_row.split(' ')
             x_central = str2[0]
@@ -101,15 +101,16 @@ def random_image_push(image_category):
     random_num = random.randint(0, len(query_array))
     return query_array[random_num]
 
-def helmet_image_push(image_category, filename):
+def helmet_image_push(image_category):
     query_array = []
     query_result = models.ImgSet.objects.filter(
         Q(img_cat = image_category)
-        & Q(img_name__contains=filename)
+        & Q(mark_flag = '-1')
     )
     for result in query_result:
         query_array.append(result.img_name)
-    return query_array[0]
+    final_query_result = query_array[0].replace('/data_set/safetyHelmet/', '')
+    return final_query_result
 
 def get_helmet_rect(filename):
     image_rect_data = {
@@ -174,8 +175,6 @@ def helmet_marking(request):
     image_id = request.POST.get("image_name")
     # Edit database
 
-    print(radio_value)
-    print(image_id)
     models.HelmetData.objects.filter(id=image_id).update(is_wearing = str(radio_value))
     models.HelmetData.objects.filter(id=image_id).update(mark_flag = '1')
 
@@ -193,22 +192,23 @@ def page_marking(request):
 def page_helmet_judge(request):
 
     if request.method == 'GET':
-        image_push = "/static" + helmet_image_push('helmet_data', '0.'
-                                                                  'jpg')
-        image_rect = get_helmet_rect('0.txt')
+        image_name = helmet_image_push('helmet_data')
+        txt_name = image_name.replace('jpg','txt')
+        image_push = "/static/data_set/safetyHelmet/" + image_name
+        image_rect = get_helmet_rect(txt_name)
 
         return render(request, "page_helmetjudge.html", {"image_push": image_push, "rect_data": json.dumps(image_rect)})
 
     elif request.method == 'POST':
         helmet_marking(request)
         image_rect = get_helmet_rect('0.txt')
-        image_push = "/static" + helmet_image_push('helmet_data', '0.jpg')
+        image_push = "/static" + helmet_image_push('helmet_data')
         return render(request, "page_helmetjudge.html", {"image_push": image_push, "rect_data": json.dumps(image_rect)})
 
 def page_test(requset):
     # Input data
     #
-    # road_data_set_input()
+    road_data_set_input()
     # ground_data_set_input()
 
     helmet_dataset_input()
