@@ -25,9 +25,9 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('marking/', views.page_marking, name='page_marking'),
     path('tagjudgement/', views.page_tag_judgement, name='tag_judgement'),
-    path('helmetjudge/', views.page_helmet_judge, name='hel_metjudge'),
+    path('helmetjudge/', views.page_helmet_judge, name='helmet_judge'),
     path('test/', views.page_test, name='test'),
-
+    path('ground/', views.page_ground, name='ground_judge'),
 
     # path("", include(('learning_logs.urls','learning_logs'), namespace='learning_logs')),
     # url(r'^login/', views.login),

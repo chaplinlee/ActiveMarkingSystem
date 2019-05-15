@@ -221,34 +221,22 @@ def page_helmet_judge(request):
 
         return render(request, "page_helmetjudge.html", {"image_push": image_push, "rect_data": json.dumps(image_rect)})
 
-def page_test(requset):
+def page_test(request):
     # Input data
     #
     # road_data_set_input()
     # ground_data_set_input()
 
     helmet_dataset_input()
-    return  render(requset, "page_test.html")
+    return  render(request, "page_test.html")
 
 def page_tag_judgement(request):
 
     return render(request, "page_judgetag.html")
 
 def image_divide():
-    import cv2
-
-    img = cv2.imread("1.JPG")
-    print(img.shape)
-    for i in range(25):
-        for j in range(46):
-            p1 = i * 100
-            q1 = j * 100
-            p2 = p1 + 100
-            q2 = q1 + 100
-
-            cropped = img[p1:p2, q1:q2]  # point[y0:y1, x0:x1]
-            cv2.imwrite('xpicture/' + str(i) + '_' + str(j) + '.jpg', cropped)
-
+    #TODO
+    return 0
 
 def ground_data_set_input():
     #TODO:
@@ -259,3 +247,7 @@ def ground_image_push():
     # TODO:
 
     return 0
+
+def page_ground(request):
+
+    return render(request, "page_groundmark.html")
