@@ -23,30 +23,32 @@
         var img = document.getElementById("helmet");
         var rect_data = {{ rect_data | safe }};
 
-        {#set canvas size#}
-        var imgWidth = img.width;
-        var imgHeight = img.height;
+        img.onload = function () {
+            {#set canvas size#}
+            var imgWidth = img.width;
+            var imgHeight = img.height;
 
-        canvas.width = imgWidth;
-        canvas.height = imgHeight;
+            canvas.width = imgWidth;
+            canvas.height = imgHeight;
 
-        {#draw image#}
-        ctx.drawImage(img, 0, 0, imgWidth, imgHeight);
+            {#draw image#}
+            ctx.drawImage(img, 0, 0, imgWidth, imgHeight);
 
-        {#draw rectangle#}
-        var x = Object.values(rect_data)[2] * imgWidth;
-        var y = Object.values(rect_data)[3] * imgHeight;
-        var width = Object.values(rect_data)[4] * imgWidth;
-        var height = Object.values(rect_data)[5] * imgHeight;
-        var x_leftTopPoint = x - width/2;
-        var y_leftTopPoint = y - height/2;
+            {#draw rectangle#}
+            var x = Object.values(rect_data)[2] * imgWidth;
+            var y = Object.values(rect_data)[3] * imgHeight;
+            var width = Object.values(rect_data)[4] * imgWidth;
+            var height = Object.values(rect_data)[5] * imgHeight;
+            var x_leftTopPoint = x - width/2;
+            var y_leftTopPoint = y - height/2;
 
-        ctx.beginPath();
-        ctx.lineWidth = "2";
-        ctx.strokeStyle = "blue";
-        {#x, y, width, height#}
-        ctx.rect(x_leftTopPoint, y_leftTopPoint, width, height);
-        ctx.stroke();
+            ctx.beginPath();
+            ctx.lineWidth = "2";
+            ctx.strokeStyle = "blue";
+            {#x, y, width, height#}
+            ctx.rect(x_leftTopPoint, y_leftTopPoint, width, height);
+            ctx.stroke();
+        }
 
 
         window.onload = function () {
@@ -54,6 +56,7 @@
             var img_name = document.getElementById("img_filename");
             img_id.value = Object.values(rect_data)[0];
             img_name.value =  Object.values(rect_data)[1];
+            
         };
 
     </script>
