@@ -50,8 +50,10 @@
 
 
         window.onload = function () {
-            var fucking_image_id_cant_get_it = document.getElementById("image_id");
-            fucking_image_id_cant_get_it.value = Object.values(rect_data)[0];
+            var img_id = document.getElementById("img_id_text");
+            var img_name = document.getElementById("img_filename");
+            img_id.value = Object.values(rect_data)[0];
+            img_name.value =  Object.values(rect_data)[1];
         };
 
     </script>
@@ -60,7 +62,8 @@
 
         <table>
             <tr>
-                <td><input type="text" name="image_name" id="image_id" style="display: none"></td>
+                <td><input type="text" name="img_id_text" id="img_id_text" style="display: none"></td>
+                <td><input type="text" name="img_filename" id="img_filename" style="display: none"></td>
             </tr>
             <tr>
                 <td><p>图片中矩形框里的人戴头盔了吗？</p></td>

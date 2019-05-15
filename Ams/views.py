@@ -101,15 +101,21 @@ def random_image_push(image_category):
     random_num = random.randint(0, len(query_array))
     return query_array[random_num]
 
-def helmet_image_push(image_category):
+def helmet_image_push():
     query_array = []
-    query_result = models.ImgSet.objects.filter(
-        Q(img_cat = image_category)
-        & Q(mark_flag = '-1')
-    )
+    # query_result = models.ImgSet.objects.filter(
+    #     Q(img_cat = image_category)
+    #     & Q(mark_flag = '-1')
+    # )
+    # for result in query_result:
+    #     query_array.append(result.img_name)
+    # final_query_result = query_array[0].replace('/data_set/safetyHelmet/', '')
+    #
+
+    query_result = models.HelmetData.objects.filter(mark_flag = '-1')
     for result in query_result:
-        query_array.append(result.img_name)
-    final_query_result = query_array[0].replace('/data_set/safetyHelmet/', '')
+        query_array.append(result.file_name)
+    final_query_result = query_array[0]
     return final_query_result
 
 def get_helmet_rect(filename):
@@ -172,13 +178,16 @@ def user_marking(request):
 def helmet_marking(request):
     # Get value of radio button
     radio_value = request.POST.get("flag")
-    # Get path of pushed image
-        # image_path = request.POST.get("pushing_image").replace('/static', '')
-    image_id = request.POST.get("image_name")
-    # Edit database
 
+    # Get path of pushed image
+    image_id = request.POST.get("img_id_text")
+    # image_filename = '/data_set/safetyHelmet/' + request.POST.get("img_filename").replace('txt', 'jpg')
+
+    # Edit database
+    # models.ImgSet.objects.filter(img_name=image_filename).update(mark_flag = '1')
     models.HelmetData.objects.filter(id=image_id).update(is_wearing = str(radio_value))
     models.HelmetData.objects.filter(id=image_id).update(mark_flag = '1')
+
 
 def page_marking(request):
 
@@ -195,22 +204,20 @@ def page_helmet_judge(request):
 
     if request.method == 'GET':
 
-        image_name = helmet_image_push('helmet_data')
-        txt_name = image_name.replace('jpg', 'txt')
-
+        txt_file = helmet_image_push()
+        image_name = txt_file.replace('txt','jpg')
         image_push = "/static/data_set/safetyHelmet/" + image_name
-        image_rect = get_helmet_rect(txt_name)
+        image_rect = get_helmet_rect(txt_file)
 
         return render(request, "page_helmetjudge.html", {"image_push": image_push, "rect_data": json.dumps(image_rect)})
 
     elif request.method == 'POST':
         helmet_marking(request)
 
-        image_name = helmet_image_push('helmet_data')
-        txt_name = image_name.replace('jpg', 'txt')
-
+        txt_file = helmet_image_push()
+        image_name = txt_file.replace('txt', 'jpg')
         image_push = "/static/data_set/safetyHelmet/" + image_name
-        image_rect = get_helmet_rect(txt_name)
+        image_rect = get_helmet_rect(txt_file)
 
         return render(request, "page_helmetjudge.html", {"image_push": image_push, "rect_data": json.dumps(image_rect)})
 
