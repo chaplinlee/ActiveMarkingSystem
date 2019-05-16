@@ -112,7 +112,9 @@ def helmet_image_push():
     query_result = models.HelmetData.objects.filter(mark_flag = '-1')
     for result in query_result:
         query_array.append(result.file_name)
-    final_query_result = query_array[0]
+    random_num = random.randint(0, len(query_array))
+    final_query_result = query_array[random_num]
+
     return final_query_result
 
 def get_helmet_rect(filename):
@@ -137,10 +139,11 @@ def get_helmet_rect(filename):
 
     for id_result in query_file_result:
         query_id_array.append(id_result.id)
-
+    random_num = random.randint(0, len(query_id_array))
     query_data_result = models.HelmetData.objects.filter(
-        Q(id=query_id_array[0])
+        Q(id=query_id_array[random_num])
     )
+    random_num = random.randint(0, len(query_data_result))
     for row in query_data_result:
         file_data.append(row.id)
         file_data.append(row.file_name)
