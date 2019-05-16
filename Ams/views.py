@@ -63,15 +63,21 @@ def helmet_dataset_input():
     for all_dir in path_dir:
         name = os.path.join(all_dir)
         f = open('./static' + dataset_dir_path + name)
-        str0 = f.read()
+        origin_data = f.read()
         f.close()
-        str1 = str0.strip().split('\n')
-        for data_row in str1:
-            str2 = data_row.split(' ')
-            x_central = str2[0]
-            y_central = str2[1]
-            rect_width = str2[2]
-            rect_height = str2[3]
+
+        data_rows = origin_data.strip().split('\n')
+        for data_row in data_rows:
+            item = data_row.strip().split(' ')
+
+            # data processing
+            if len(item) == 5:
+                del item[0]
+
+            x_central = item[0]
+            y_central = item[1]
+            rect_width = item[2]
+            rect_height = item[3]
 
             models.HelmetData.objects.create(
                 file_name=name,
@@ -103,15 +109,6 @@ def random_image_push(image_category):
 
 def helmet_image_push():
     query_array = []
-    # query_result = models.ImgSet.objects.filter(
-    #     Q(img_cat = image_category)
-    #     & Q(mark_flag = '-1')
-    # )
-    # for result in query_result:
-    #     query_array.append(result.img_name)
-    # final_query_result = query_array[0].replace('/data_set/safetyHelmet/', '')
-    #
-
     query_result = models.HelmetData.objects.filter(mark_flag = '-1')
     for result in query_result:
         query_array.append(result.file_name)
@@ -140,7 +137,6 @@ def get_helmet_rect(filename):
 
     for id_result in query_file_result:
         query_id_array.append(id_result.id)
-
 
     query_data_result = models.HelmetData.objects.filter(
         Q(id=query_id_array[0])
@@ -226,7 +222,6 @@ def page_test(request):
     #
     # road_data_set_input()
     # ground_data_set_input()
-
     helmet_dataset_input()
     return  render(request, "page_test.html")
 

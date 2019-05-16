@@ -24,12 +24,12 @@
         var rect_data = {{ rect_data | safe }};
 
         window.onload = function () {
-                    var img_id = document.getElementById("img_id_text");
-                    var img_name = document.getElementById("img_filename");
-                    img_id.value = Object.values(rect_data)[0];
-                    img_name.value =  Object.values(rect_data)[1];
+            var img_id = document.getElementById("img_id_text");
+            var img_name = document.getElementById("img_filename");
+            img_id.value = Object.values(rect_data)[0];
+            img_name.value =  Object.values(rect_data)[1];
 
-                };
+        };
 
         img.onload = function () {
             {#set canvas size#}
@@ -57,9 +57,6 @@
             ctx.rect(x_leftTopPoint, y_leftTopPoint, width, height);
             ctx.stroke();
         }
-
-
-
 
     </script>
 
