@@ -10,6 +10,7 @@ import random
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 import json
+
 # main page construction function
 def login(request):
     if request.method == 'GET':
@@ -225,21 +226,70 @@ def page_test(request):
     #
     # road_data_set_input()
     # ground_data_set_input()
-    helmet_dataset_input()
+    # helmet_dataset_input()
+    image_name = 'ground001.jpeg'
+    image_divide(image_name)
     return  render(request, "page_test.html")
 
 def page_tag_judgement(request):
 
     return render(request, "page_judgetag.html")
 
-def image_divide():
+def image_divide(image_name):
     #TODO
-    return 0
+
+    # image_name = 'ground001.jpg'
+
+    import cv2
+    from glob import glob
+    import matplotlib.pyplot as plt
+
+    origin_image_dir = './static/data_set/ground_cam/origin_img/'
+    divided_image_dir = './static/data_set/ground_cam/divided_img/'
+
+    image_path = origin_image_dir + image_name
+    print(image_path)
+    img = cv2.imread(image_path)
+    # static/data_set/ground_cam/origin_img/ground001.jpeg
+    # print(img)
+
+    width = img.shape[0]
+    height = img.shape[1]
+    origin_image_name = image_name.split('.')[0]
+    origin_image_type = image_name.split('.')[1]
+
+    # img_block_size
+    block_size = 125
+
+    plt.figure()
+    for i in range(int(width / block_size)):
+        for j in range(int(height / block_size)):
+            img_new = img[block_size * i: block_size * (i + 1), block_size * j: block_size * (j + 1), :]
+            image_block_name = origin_image_name + '_' + str(i) + '_' + str(j) + '.' + origin_image_type
+            image_block_path = divided_image_dir + image_block_name
+            print(image_block_path)
+            cv2.imwrite(image_block_path, img_new)
 
 def ground_data_set_input():
     #TODO:
+    unmarked = '-1'  # unmarked img flag
+    data_set_dir_path = '/data_set/ground_cam/origin_img'
+    data_set_category = 'ground_data'
 
-    return 0
+    path_dir = os.listdir('./static' + data_set_dir_path)
+    for all_dir in path_dir:
+        name = data_set_dir_path + os.path.join(all_dir)
+        category = data_set_category
+
+        flag_tag = unmarked
+        flag_tag_judgement = unmarked
+
+        models.ImgSet.objects.create(
+            img_name=name,
+            img_cat=category,
+            mark_flag=flag_tag,
+            img_tag_judgement=flag_tag_judgement
+        )
 
 def ground_image_push():
     # TODO:
