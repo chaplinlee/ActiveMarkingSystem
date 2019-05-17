@@ -242,13 +242,13 @@ def image_divide(image_name):
 
     import cv2
     from glob import glob
-    import matplotlib.pyplot as plt
+    # import matplotlib.pyplot as plt
 
     origin_image_dir = './static/data_set/ground_cam/origin_img/'
     divided_image_dir = './static/data_set/ground_cam/divided_img/'
 
     image_path = origin_image_dir + image_name
-    print(image_path)
+
     img = cv2.imread(image_path)
     # static/data_set/ground_cam/origin_img/ground001.jpeg
     # print(img)
@@ -261,7 +261,6 @@ def image_divide(image_name):
     # img_block_size
     block_size = 125
 
-    plt.figure()
     for i in range(int(width / block_size)):
         for j in range(int(height / block_size)):
             img_new = img[block_size * i: block_size * (i + 1), block_size * j: block_size * (j + 1), :]
