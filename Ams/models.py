@@ -32,3 +32,9 @@ class HelmetData(models.Model):
     is_wearing = models.CharField(max_length=10)
     mark_flag = models.CharField(max_length=10)
     tag_judgement = models.CharField(max_length=10)
+
+class GroundData(models.Model):
+    img_name
+
+
+    mark_flag = models.CharField(max_length=10)

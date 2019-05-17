@@ -237,12 +237,8 @@ def page_tag_judgement(request):
 
 def image_divide(image_name):
     #TODO
-
-    # image_name = 'ground001.jpg'
-
     import cv2
     from glob import glob
-    # import matplotlib.pyplot as plt
 
     origin_image_dir = './static/data_set/ground_cam/origin_img/'
     divided_image_dir = './static/data_set/ground_cam/divided_img/'
@@ -250,8 +246,6 @@ def image_divide(image_name):
     image_path = origin_image_dir + image_name
 
     img = cv2.imread(image_path)
-    # static/data_set/ground_cam/origin_img/ground001.jpeg
-    # print(img)
 
     width = img.shape[0]
     height = img.shape[1]
