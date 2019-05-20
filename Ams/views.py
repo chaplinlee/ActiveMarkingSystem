@@ -227,8 +227,12 @@ def page_test(request):
     # road_data_set_input()
     # ground_data_set_input()
     # helmet_dataset_input()
-    image_name = 'ground001.jpeg'
-    image_divide(image_name)
+    path = 'static/data_set/ground_cam/origin_img/'
+    file = os.listdir(path)
+    for filename in file:
+        name = os.path.join(filename)
+        image_divide(name)
+
     return  render(request, "page_test.html")
 
 def page_tag_judgement(request):
@@ -253,14 +257,15 @@ def image_divide(image_name):
     origin_image_type = image_name.split('.')[1]
 
     # img_block_size
-    block_size = 125
+    block_size = 16
 
     for i in range(int(width / block_size)):
         for j in range(int(height / block_size)):
             img_new = img[block_size * i: block_size * (i + 1), block_size * j: block_size * (j + 1), :]
+
             image_block_name = origin_image_name + '_' + str(i) + '_' + str(j) + '.' + origin_image_type
             image_block_path = divided_image_dir + image_block_name
-            print(image_block_path)
+
             cv2.imwrite(image_block_path, img_new)
 
 def ground_data_set_input():

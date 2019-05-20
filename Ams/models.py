@@ -34,7 +34,11 @@ class HelmetData(models.Model):
     tag_judgement = models.CharField(max_length=10)
 
 class GroundData(models.Model):
-    img_name
-
+    img_name = models.CharField(max_length=200)
+    img_origin_id = models.FloatField(max_length = 20)
+    x_block_index = models.FloatField(max_length = 20)
+    y_block_index = models.FloatField(max_length = 20)
+    img_size = models.FloatField(max_length = 20)
+    img_type = models.FloatField(max_length = 20) # grass dirt concrete unknown
 
     mark_flag = models.CharField(max_length=10)
