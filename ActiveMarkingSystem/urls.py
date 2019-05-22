@@ -17,6 +17,9 @@ from django.contrib import admin
 from django.urls import path
 from Ams import views
 from django.conf.urls import url
+from django.views import static
+from django.conf import setting
+from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,6 +32,8 @@ urlpatterns = [
     path('test/', views.page_test, name='test'),
     path('ground/', views.page_ground, name='ground_judge'),
 
+    url(r'^static/(?P<path>.*)$', static.serve,
+        {'document_root':setting.STATIC_ROOT}, name='static'),
     # path("", include(('learning_logs.urls','learning_logs'), namespace='learning_logs')),
     # url(r'^login/', views.login),
 

@@ -230,12 +230,12 @@ def page_test(request):
     #
     # road_data_set_input()
     # ground_data_set_input()
-    # helmet_dataset_input()
-    path = 'static/data_set/ground_cam/origin_img/'
-    file = os.listdir(path)
-    for filename in file:
-        name = os.path.join(filename)
-        image_divide(name)
+    helmet_dataset_input()
+    # path = 'static/data_set/ground_cam/origin_img/'
+    # file = os.listdir(path)
+    # for filename in file:
+    #     name = os.path.join(filename)
+    #     image_divide(name)
 
     return  render(request, "page_test.html")
 
