@@ -56,7 +56,7 @@ def road_data_set_input():
         )
 
     print("Input Road Data Successfully!")
-    
+
 def helmet_dataset_input():
 
     unmarked = '-1'  # unmarked img flag
