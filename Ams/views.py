@@ -257,7 +257,7 @@ def image_divide(image_name):
     origin_image_type = image_name.split('.')[1]
 
     # img_block_size
-    block_size = 16
+    block_size = 64
 
     for i in range(int(width / block_size)):
         for j in range(int(height / block_size)):
@@ -267,6 +267,9 @@ def image_divide(image_name):
             image_block_path = divided_image_dir + image_block_name
 
             cv2.imwrite(image_block_path, img_new)
+            print("Now Editing image: " + image_block_name)
+
+    print("Input Ground Data Successfully!")
 
 def ground_data_set_input():
     #TODO:
