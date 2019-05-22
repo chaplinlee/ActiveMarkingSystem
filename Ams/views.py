@@ -54,6 +54,9 @@ def road_data_set_input():
             mark_flag = flag_tag,
             img_tag_judgement = flag_tag_judgement
         )
+
+    print("Input Road Data Successfully!")
+    
 def helmet_dataset_input():
 
     unmarked = '-1'  # unmarked img flag
@@ -96,6 +99,7 @@ def helmet_dataset_input():
             mark_flag=unmarked,
             img_tag_judgement=unmarked
         )
+    print("Input Helmet Data Successfully!")
 
 def random_image_push(image_category):
     query_array = []
