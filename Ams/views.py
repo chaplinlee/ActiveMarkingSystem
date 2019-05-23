@@ -227,10 +227,13 @@ def page_helmet_judge(request):
 
 def page_test(request):
     # Input data
-    #
+
     # road_data_set_input()
+
     # ground_data_set_input()
+
     helmet_dataset_input()
+
     # path = 'static/data_set/ground_cam/origin_img/'
     # file = os.listdir(path)
     # for filename in file:

@@ -23,12 +23,15 @@
         var img = document.getElementById("helmet");
         var rect_data = {{ rect_data | safe }};
 
+        {#alert(rect_data["file_name"]);#}
+        {#alert(rect_data["id"]);#}
         window.onload = function () {
             var img_id = document.getElementById("img_id_text");
             var img_name = document.getElementById("img_filename");
-            img_id.value = Object.values(rect_data)[0];
-            img_name.value =  Object.values(rect_data)[1];
-
+            {#img_id.value = Object.values(rect_data)[0];#}
+            {#img_name.value =  Object.values(rect_data)[1];#}
+            img_id.value = rect_data["id"];
+            img_name.value = rect_data["file_name"];
         };
 
         img.onload = function () {
@@ -43,10 +46,17 @@
             ctx.drawImage(img, 0, 0, imgWidth, imgHeight);
 
             {#draw rectangle#}
-            var x = Object.values(rect_data)[2] * imgWidth;
-            var y = Object.values(rect_data)[3] * imgHeight;
-            var width = Object.values(rect_data)[4] * imgWidth;
-            var height = Object.values(rect_data)[5] * imgHeight;
+            {#var x = Object.values(rect_data)[2] * imgWidth;#}
+            {#var y = Object.values(rect_data)[3] * imgHeight;#}
+            {#var width = Object.values(rect_data)[4] * imgWidth;#}
+            {#var height = Object.values(rect_data)[5] * imgHeight;#}
+            {#var x_leftTopPoint = x - width/2;#}
+            {#var y_leftTopPoint = y - height/2;#}
+
+            var x = rect_data["x_central_point"] * imgWidth;
+            var y = rect_data["y_central_point"] * imgHeight;
+            var width = rect_data["rect_width"] * imgWidth;
+            var height = rect_data["rect_height"] * imgHeight;
             var x_leftTopPoint = x - width/2;
             var y_leftTopPoint = y - height/2;
 
