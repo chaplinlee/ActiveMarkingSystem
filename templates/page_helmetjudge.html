@@ -45,14 +45,6 @@
             {#draw image#}
             ctx.drawImage(img, 0, 0, imgWidth, imgHeight);
 
-            {#draw rectangle#}
-            {#var x = Object.values(rect_data)[2] * imgWidth;#}
-            {#var y = Object.values(rect_data)[3] * imgHeight;#}
-            {#var width = Object.values(rect_data)[4] * imgWidth;#}
-            {#var height = Object.values(rect_data)[5] * imgHeight;#}
-            {#var x_leftTopPoint = x - width/2;#}
-            {#var y_leftTopPoint = y - height/2;#}
-
             var x = rect_data["x_central_point"] * imgWidth;
             var y = rect_data["y_central_point"] * imgHeight;
             var width = rect_data["rect_width"] * imgWidth;
@@ -78,7 +70,7 @@
                 <td><input type="text" name="img_filename" id="img_filename" style="display: none"></td>
             </tr>
             <tr>
-                <td><p>图片中矩形框里的人戴头盔了吗？</p></td>
+                <td><p>图片中矩形框里的人戴安全帽了吗？</p></td>
             </tr>
             <tr>
                 <td>
