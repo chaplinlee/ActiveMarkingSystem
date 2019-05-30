@@ -1,10 +1,40 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Image Set Active Marking System</title>
 </head>
 <body>
+    <script>
 
+    </script>
+    <table>
+        <tr>
+            <td>
+                <img src="{{ image_push }}" name="image"/>
+            </td>
+        </tr>
+    </table>
+    <form id="id_form" method="post">
+        <table>
+            <tr>
+                <td><input type="text" name="pushing_image" style="display:none" value="{{ image_push }}"></td>
+            </tr>
+            <tr>
+                <td><p>该图片显示的地面是？</p></td>
+            </tr>
+            <tr>
+                <td>
+                    <label><input name="flag" type="radio" value="0" />土地</label>
+                    <label><input name="flag" type="radio" value="1" />水泥</label>
+                    <label><input name="flag" type="radio" value="2" />砖块</label>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="提交"></td>
+            </tr>
+        </table>
+    </form>
 </body>
 </html>

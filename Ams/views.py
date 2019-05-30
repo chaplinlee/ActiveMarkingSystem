@@ -230,9 +230,9 @@ def page_test(request):
 
     # road_data_set_input()
 
-    # ground_data_set_input()
+    ground_data_set_input()
 
-    helmet_dataset_input()
+    # helmet_dataset_input()
 
     # path = 'static/data_set/ground_cam/origin_img/'
     # file = os.listdir(path)
@@ -264,7 +264,7 @@ def image_divide(image_name):
     origin_image_type = image_name.split('.')[1]
 
     # img_block_size
-    block_size = 64
+    block_size = 256
 
     for i in range(int(width / block_size)):
         for j in range(int(height / block_size)):
@@ -298,6 +298,8 @@ def ground_data_set_input():
             mark_flag=flag_tag,
             img_tag_judgement=flag_tag_judgement
         )
+
+    
 
 def ground_image_push():
     # TODO:
