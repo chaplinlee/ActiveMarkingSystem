@@ -274,6 +274,7 @@ def image_divide(image_name):
             image_block_path = divided_image_dir + image_block_name
 
             cv2.imwrite(image_block_path, img_new)
+
             print("Now Editing image: " + image_block_name)
 
     print("Input Ground Data Successfully!")
@@ -281,13 +282,15 @@ def image_divide(image_name):
 def ground_data_set_input():
     #TODO:
     unmarked = '-1'  # unmarked img flag
-    data_set_dir_path = '/data_set/ground_cam/origin_img'
-    data_set_category = 'ground_data'
+    origin_data_set_dir_path = '/data_set/ground_cam/origin_img'
+    origin_data_set_category = 'ground_data'
 
-    path_dir = os.listdir('./static' + data_set_dir_path)
-    for all_dir in path_dir:
-        name = data_set_dir_path + os.path.join(all_dir)
-        category = data_set_category
+    divided_data_set_dir_path = '/data_set/ground_cam/divided_img'
+    query_id_array = []
+    origin_path_dir = os.listdir('./static' + origin_data_set_dir_path)
+    for all_dir in origin_path_dir:
+        name = origin_data_set_dir_path + '/' + os.path.join(all_dir)
+        category = origin_data_set_category
 
         flag_tag = unmarked
         flag_tag_judgement = unmarked
@@ -298,8 +301,36 @@ def ground_data_set_input():
             mark_flag=flag_tag,
             img_tag_judgement=flag_tag_judgement
         )
+        print("Now input: " + all_dir)
 
-    
+    print("Imgset data input completed")
+
+    divided_path_dir = os.listdir('./static' + divided_data_set_dir_path)
+    for all_dir in divided_path_dir:
+        image_name = os.path.join(all_dir).split('.')[0]
+        image_format = os.path.join(all_dir).split('.')[1]
+
+        origin_img_name = image_name.split('_')[0] + '.' + image_format
+        x_block = image_name.split('_')[1]
+        y_block = image_name.split('_')[2]
+
+        relative_path = origin_data_set_dir_path + '/' + origin_img_name
+
+        origin_id = models.ImgSet.objects.get(img_name = relative_path).id
+
+
+        models.GroundData.objects.create(
+            img_name = all_dir,
+            img_origin_id = origin_id,
+            x_block_index = x_block,
+            y_block_index = y_block,
+            img_size = unmarked,
+            img_type = unmarked,
+            mark_flag = unmarked
+        )
+        print("Now input: " + image_name + '.' + image_format)
+    print("ground data input completed")
+
 
 def ground_image_push():
     # TODO:
