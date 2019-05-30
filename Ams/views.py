@@ -169,7 +169,8 @@ def get_helmet_rect(filename):
     image_rect_data['is_wearing'] = file_data[6]
     image_rect_data['mark_flag'] = file_data[7]
     image_rect_data['tag_judgement'] = file_data[8]
-    return image_rect_data
+
+    return image_rect_data[random_num]
 
 def user_marking(request):
     # Get value of radio button
