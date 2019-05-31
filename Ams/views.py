@@ -341,15 +341,18 @@ def ground_data_set_input():
 
 
 def ground_image_marking(request):
-    # TODO:
 
     # Get value of radio button
     radio_value = request.POST.get("flag")
     # Get path of pushed image
-    image_path = request.POST.get("pushing_image").replace('/static', '')
+    image_path = request.POST.get("pushing_image").replace('/static/data_set/ground_cam/divided_img/', '')
 
     # Edit database
-    models.GroundData.objects.filter(img_name=image_path).update(mark_flag=str(radio_value))
+    # 0 for unknown
+    # 1 for dirt
+    # 2 for Cement
+    # 3 for block
+    models.GroundData.objects.filter(img_name=image_path).update(img_type=str(radio_value))
 
     return 0
 
