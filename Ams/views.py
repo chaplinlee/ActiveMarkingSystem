@@ -112,6 +112,14 @@ def random_image_push(image_category):
     random_num = random.randint(0, len(query_array))
     return query_array[random_num]
 
+def random_ground_image_push():
+    query_array = []
+    query_result = models.GroundData.objects.filter(mark_flag = '-1')
+    for result in query_result:
+        query_array.append(result.img_name)
+    random_num = random.randint(0, len(query_array))
+    return query_array[random_num]
+
 def helmet_image_push():
     query_array = []
     query_result = models.HelmetData.objects.filter(mark_flag = '-1')
@@ -282,6 +290,7 @@ def image_divide(image_name):
 
 def ground_data_set_input():
     #TODO:
+    block_size = 256
     unmarked = '-1'  # unmarked img flag
     origin_data_set_dir_path = '/data_set/ground_cam/origin_img'
     origin_data_set_category = 'ground_data'
@@ -319,13 +328,12 @@ def ground_data_set_input():
 
         origin_id = models.ImgSet.objects.get(img_name = relative_path).id
 
-
         models.GroundData.objects.create(
             img_name = all_dir,
             img_origin_id = origin_id,
             x_block_index = x_block,
             y_block_index = y_block,
-            img_size = unmarked,
+            img_size = block_size,
             img_type = unmarked,
             mark_flag = unmarked
         )
@@ -333,11 +341,26 @@ def ground_data_set_input():
     print("ground data input completed")
 
 
-def ground_image_push():
+def ground_image_marking(request):
     # TODO:
+
+    # Get value of radio button
+    radio_value = request.POST.get("flag")
+    # Get path of pushed image
+    image_path = request.POST.get("pushing_image").replace('/static', '')
+
+    # Edit database
+    models.GroundData.objects.filter(img_name=image_path).update(mark_flag=str(radio_value))
 
     return 0
 
-def page_ground(request):
 
-    return render(request, "page_groundmark.html")
+def page_ground(request):
+    if request.method == 'GET':
+        image_push = "/static/data_set/ground_cam/divided_img/" + random_ground_image_push()
+        return render(request, "page_groundmark.html", {"image_push": image_push})
+
+    elif request.method == 'POST':
+        ground_image_marking(request)
+        image_push = "/static/data_set/ground_cam/divided_img/" + random_ground_image_push()
+        return render(request, "page_groundmark.html", {"image_push": image_push})
