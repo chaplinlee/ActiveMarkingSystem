@@ -234,20 +234,19 @@ def page_helmet_judge(request):
 
         return render(request, "page_helmetjudge.html", {"image_push": image_push, "rect_data": json.dumps(image_rect)})
 
+# Input data
 def page_test(request):
-    # Input data
-
-    # road_data_set_input()
+    road_data_set_input()
 
     ground_data_set_input()
 
-    # helmet_dataset_input()
+    helmet_dataset_input()
 
-    # path = 'static/data_set/ground_cam/origin_img/'
-    # file = os.listdir(path)
-    # for filename in file:
-    #     name = os.path.join(filename)
-    #     image_divide(name)
+    path = 'static/data_set/ground_cam/origin_img/'
+    file = os.listdir(path)
+    for filename in file:
+        name = os.path.join(filename)
+        image_divide(name)
 
     return  render(request, "page_test.html")
 
