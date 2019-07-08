@@ -427,33 +427,44 @@ def page_ground(request):
         return render(request, "page_groundmark.html", {"image_push": image_push})
 
 
+# def road_occupation_detection():
+#     import cv2
+#     import matplotlib.pyplot as plt
+#
+#     # name = 'static/data_set/div_road/11_14_50_0_0.jpg'
+#     # img = cv2.imread(name)
+#     # print(img)
+#
+#     gtpath = '/data_set/groundtruth/'
+#     path = 'static/data_set/div_road/'
+#     file = os.listdir(path)
+#     for filename in file:
+#
+#         name = os.path.join(filename)
+#         # img = cv2.imread(name)
+#
+#         image_name = name.split('.')[0]
+#         image_index_x = image_name.split('_')[3]
+#         image_index_y = image_name.split('_')[4]
+#
+#         query_index = image_index_x + '_' + image_index_y
+#
+#         gt = 'static' + gtpath + '_' + query_index
+#
+#         img = cv2.imread(image_path)
+#         img_gt = cv2.imread(gt)
+#
+#         d_value = img - img_gt
+#
+#         print(d_value)
+
 def road_occupation_detection():
-    import cv2
     import matplotlib.pyplot as plt
+    import cv2
 
-    # name = 'static/data_set/div_road/11_14_50_0_0.jpg'
-    # img = cv2.imread(name)
-    # print(img)
+    name = 'static/data_set/div_road/11_14_50_0_0.jpg'
+    ground_truth = 'static/data_set/groundtruth.jpg'
+    gt = cv2.imread(ground_truth)
+    img = cv2.imread(name)
 
-    gtpath = '/data_set/groundtruth/'
-    path = 'static/data_set/div_road/'
-    file = os.listdir(path)
-    for filename in file:
-
-        name = os.path.join(filename)
-        # img = cv2.imread(name)
-
-        image_name = name.split('.')[0]
-        image_index_x = image_name.split('_')[3]
-        image_index_y = image_name.split('_')[4]
-
-        query_index = image_index_x + '_' + image_index_y
-
-        gt = 'static' + gtpath + '_' + query_index
-
-        img = cv2.imread(image_path)
-        img_gt = cv2.imread(gt)
-
-        d_value = img - img_gt
-
-        print(d_value)
+    plt.show(gt)
