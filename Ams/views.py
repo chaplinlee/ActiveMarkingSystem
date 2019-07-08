@@ -241,6 +241,15 @@ def page_marking(request):
 
 def road_marking(request):
     # Get value of radio button
+    '''
+    unmark -1
+    road 1
+    pavement 2
+    building 3
+    tree 4
+    road sign 5
+    '''
+    
     radio_value = request.POST.get("flag")
     # Get path of pushed image
     image_path = request.POST.get("pushing_image").replace('/static', '')
