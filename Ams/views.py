@@ -292,7 +292,8 @@ def page_helmet_judge(request):
 # Input data
 
 def page_test(request):
-    road_ground_truth_input()
+    road_occupation_detection()
+    # road_ground_truth_input()
     # road_data_set_input()
     #
     # ground_data_set_input()
@@ -427,3 +428,32 @@ def page_ground(request):
 
 
 def road_occupation_detection():
+    import cv2
+    import matplotlib.pyplot as plt
+
+    # name = 'static/data_set/div_road/11_14_50_0_0.jpg'
+    # img = cv2.imread(name)
+    # print(img)
+
+    gtpath = '/data_set/groundtruth/'
+    path = 'static/data_set/div_road/'
+    file = os.listdir(path)
+    for filename in file:
+
+        name = os.path.join(filename)
+        # img = cv2.imread(name)
+
+        image_name = name.split('.')[0]
+        image_index_x = image_name.split('_')[3]
+        image_index_y = image_name.split('_')[4]
+
+        query_index = image_index_x + '_' + image_index_y
+
+        gt = 'static' + gtpath + '_' + query_index
+
+        img = cv2.imread(image_path)
+        img_gt = cv2.imread(gt)
+
+        d_value = img - img_gt
+
+        print(d_value)
