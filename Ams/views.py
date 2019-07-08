@@ -249,7 +249,7 @@ def road_marking(request):
     tree 4
     road sign 5
     '''
-    
+
     radio_value = request.POST.get("flag")
     # Get path of pushed image
     image_path = request.POST.get("pushing_image").replace('/static', '')
@@ -424,3 +424,6 @@ def page_ground(request):
         ground_image_marking(request)
         image_push = "/static/data_set/ground_cam/divided_img/" + random_ground_image_push()
         return render(request, "page_groundmark.html", {"image_push": image_push})
+
+
+def road_occupation_detection():
