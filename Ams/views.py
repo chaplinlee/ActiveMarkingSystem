@@ -57,6 +57,32 @@ def road_data_set_input():
 
     print("Input Road Data Successfully!")
 
+
+def road_ground_truth_input():
+
+    unmarked = '-1'  # unmarked img flag
+    data_set_dir_path = '/data_set/groundtruth/'
+    data_set_category = 'ground_truth'
+
+    path_dir = os.listdir('./static' + data_set_dir_path)
+    for all_dir in path_dir:
+
+        name = data_set_dir_path + os.path.join(all_dir)
+        category = data_set_category
+
+        flag_tag = unmarked
+        flag_tag_judgement = unmarked
+
+        models.ImgSet.objects.create(
+            img_name = name,
+            img_cat = category,
+            mark_flag = flag_tag,
+            img_tag_judgement = flag_tag_judgement
+        )
+
+    print("Input Ground truth Successfully!")
+
+
 def helmet_dataset_input():
 
     unmarked = '-1'  # unmarked img flag
@@ -213,6 +239,18 @@ def page_marking(request):
         image_push = "/static" + random_image_push('road_camera')
         return render(request, "page_marking.html", {"image_push": image_push})
 
+
+def page_roadmark(request):
+
+    if request.method == 'GET':
+        image_push = "/static" + random_image_push('road_camera')
+        return render(request, "page_marking.html", {"image_push": image_push})
+
+    elif request.method == 'POST':
+        user_marking(request)
+        image_push = "/static" + random_image_push('road_camera')
+        return render(request, "page_marking.html", {"image_push": image_push})
+
 def page_helmet_judge(request):
 
     if request.method == 'GET':
@@ -235,20 +273,22 @@ def page_helmet_judge(request):
         return render(request, "page_helmetjudge.html", {"image_push": image_push, "rect_data": json.dumps(image_rect)})
 
 # Input data
+
 def page_test(request):
-    road_data_set_input()
+    road_ground_truth_input()
+    # road_data_set_input()
+    #
+    # ground_data_set_input()
+    #
+    # helmet_dataset_input()
+    #
+    # path = 'static/data_set/ground_cam/origin_img/'
+    # file = os.listdir(path)
+    # for filename in file:
+    #     name = os.path.join(filename)
+    #     image_divide(name)
 
-    ground_data_set_input()
-
-    helmet_dataset_input()
-
-    path = 'static/data_set/ground_cam/origin_img/'
-    file = os.listdir(path)
-    for filename in file:
-        name = os.path.join(filename)
-        image_divide(name)
-
-    return  render(request, "page_test.html")
+    return render(request, "page_test.html")
 
 def page_tag_judgement(request):
 
@@ -352,6 +392,7 @@ def ground_image_marking(request):
     # 1 for dirt
     # 2 for Cement
     # 3 for block
+    # 4 for grass
     models.GroundData.objects.filter(img_name=image_path).update(img_type=str(radio_value))
 
     return 0
