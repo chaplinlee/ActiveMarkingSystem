@@ -31,7 +31,7 @@ urlpatterns = [
     path('helmetjudge/', views.page_helmet_judge, name='helmet_judge'),
     path('test/', views.page_test, name='test'),
     path('ground/', views.page_ground, name='ground_judge'),
-    path('road/', views.page_road, name='road_mark'),
+    path('road/', views.page_road, name='page_road'),
     # url(r'^static/(?P<path>.*)$', static.serve,
     #     {'document_root':setting.STATIC_ROOT}, name='static'),
     # path("", include(('learning_logs.urls','learning_logs'), namespace='learning_logs')),

@@ -239,17 +239,25 @@ def page_marking(request):
         image_push = "/static" + random_image_push('road_camera')
         return render(request, "page_marking.html", {"image_push": image_push})
 
+def road_marking(request):
+    # Get value of radio button
+    radio_value = request.POST.get("flag")
+    # Get path of pushed image
+    image_path = request.POST.get("pushing_image").replace('/static', '')
+    # Edit database
+    models.ImgSet.objects.filter(img_name=image_path).update(mark_flag=str(radio_value))
 
-def page_roadmark(request):
+
+def page_road(request):
 
     if request.method == 'GET':
-        image_push = "/static" + random_image_push('road_camera')
-        return render(request, "page_marking.html", {"image_push": image_push})
+        image_push = "/static" + random_image_push('ground_truth')
+        return render(request, "page_road.html", {"image_push": image_push})
 
     elif request.method == 'POST':
-        user_marking(request)
-        image_push = "/static" + random_image_push('road_camera')
-        return render(request, "page_marking.html", {"image_push": image_push})
+        road_marking(request)
+        image_push = "/static" + random_image_push('ground_truth')
+        return render(request, "page_road.html", {"image_push": image_push})
 
 def page_helmet_judge(request):
 
