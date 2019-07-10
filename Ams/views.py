@@ -11,6 +11,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 import json
 
+
 # main page construction function
 def login(request):
     if request.method == 'GET':
@@ -459,12 +460,24 @@ def page_ground(request):
 #         print(d_value)
 
 def road_occupation_detection():
-    import matplotlib.pyplot as plt
     import cv2
+    import matplotlib.pyplot as plt
 
-    name = 'static/data_set/div_road/11_14_50_0_0.jpg'
-    ground_truth = 'static/data_set/groundtruth.jpg'
-    gt = cv2.imread(ground_truth)
-    img = cv2.imread(name)
+    height = list(range(15))
+    width = list(range(22))
 
-    plt.show(gt)
+
+    img = cv2.imread('static/data_set/groundtruth.jpg')
+    for i in height:
+        for j in width:
+            gt_name = '/data_set/groundtruth/groundtruth_' + str(i) + '_' + str(j) + '.jpg'
+            mk_flag = models.ImgSet.objects.get(img_name=gt_name).mark_flag
+
+            if mk_flag == '1':
+                # draw 16x16 px to red
+                img[i * 16: i + 16, j * 16: j + 16] = (255, 0, 0)
+            else:
+                # draw 16x16 px to blue
+                img[i * 16: i + 16, j * 16: j + 16] = (0, 0, 255)
+    plt.savefig('gtedited.jpg')
+    plt.close('all')
